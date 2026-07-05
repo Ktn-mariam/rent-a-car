@@ -1,0 +1,35 @@
+import { MdEventSeat } from "react-icons/md";
+import { FaGear } from "react-icons/fa6";
+
+const CarCard = () => {
+  return (
+    <div className="w-fit border-gray-200 border-2 border-solid px-3 rounded-md py-3">
+      <div>
+        <h2 className="text-lg font-bold uppercase">Toyota Corolla</h2>
+        <p>Type: <span className="font-bold">Sedan</span></p>
+        <div className="flex gap-3">
+          <div className="flex items-center gap-0.5">
+            <FaGear />
+            <p className="p-0 m-0">Automatic</p>
+          </div>
+          <div className="flex items-center gap-0.5">
+            <MdEventSeat />
+            5
+          </div>
+          <p className="italic text-green-600">Available</p>
+          {/* <p className="italic text-red-600">Not Available</p> */}
+        </div>
+      </div>
+      <div className="flex items-center justify-center mt-2">
+        <div className="h-40 w-64 mb-3 flex items-center justify-center overflow-hidden rounded-md">
+          <img src="https://media.wired.com/photos/63b8d0a771c6b526845f15a6/3:2/w_2400,h_1600,c_limit/CES-2023-PEUGEOT_INCEPTION_CONCEPT_2301CN202.jpg" alt="Car" className="object-cover w-full h-full" />
+        </div>
+      </div>
+      <div>
+        Starting from <span className="font-bold">130</span> AED/ Day
+      </div>
+    </div>
+  )
+}
+
+export default CarCard
