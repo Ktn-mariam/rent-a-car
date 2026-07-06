@@ -15,6 +15,7 @@ function App() {
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
   const [transmission, setTransmission] = useState("All")
   const [type, setType] = useState("All")
+  const [sortByPrice, setSortByPrice] = useState("Default")
 
   useEffect(()=>{
     const fetchCars = async () => {
@@ -30,25 +31,32 @@ function App() {
 
   useEffect(()=>{
     let filteredCars = cars;
+
+    // filtering logic based on transmission and type
     if (transmission !== "All") {
       filteredCars = cars.filter((car) => car.transmission === transmission)
     }
     if (type !== "All") {
       filteredCars = filteredCars.filter((car) => car.type === type)
     }
+
+    // Sorting logic based on price
+    if (sortByPrice === "Low") {
+      filteredCars = filteredCars.sort((a,b) => a.pricePerDay - b.pricePerDay)
+    } else if (sortByPrice === "High") {
+      filteredCars = filteredCars.sort((a, b) => b.pricePerDay - a.pricePerDay)
+    }
+
     setFilteredCountOfCars(filteredCars.length);
-    setFilteredCars(filteredCars)
-  }, [transmission, type])
+    setFilteredCars([...filteredCars])
+  }, [transmission, type, sortByPrice, cars])
 
   const handleTransmissionChange = (event) => {
-    setTransmission(event.target.value);
-    console.log(event.target.value);
-    
+    setTransmission(event.target.value);    
   };
   
   const handleTypeChange = (event) => {
     setType(event.target.value);
-    console.log(event.target.value);
   };
 
   return (
@@ -111,7 +119,7 @@ function App() {
                 <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
               </div>
               <div>
-                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40'>
+                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40' value={sortByPrice} onChange={(e) => setSortByPrice(e.target.value)}>
                   <option value="Default">Sort By Price</option>
                   <option value="High">High to Low</option>
                   <option value="Low">Low to High</option>
@@ -123,8 +131,8 @@ function App() {
             </div>
           </div>
           <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
-            {filteredCars.map((car)=>{
-              return <CarCard car={car} />
+            {filteredCars.map((car, index)=>{
+              return <CarCard car={car} key={index} />
             })}
           </div>
         </div>
