@@ -3,13 +3,9 @@ import CarCard from './components/CarCard'
 import { GrPowerReset } from "react-icons/gr";
 import { GoAlertFill } from "react-icons/go";
 import { useSearchParams } from 'react-router-dom';
-
-// To add
-// Radio button options for Transmission (Automatic / Manual / All), Type (Economy / Sedan/ SUV / Luxury / All),
-// Drop down for Sort by price: Low→High and High→Low.
-// Results counter: "Showing X of Y cars", updating live.
-// Search box
-// Reset Filter Button
+import Sort from './components/Sort';
+import TransmissionFilter from './components/TransmissionFilter';
+import TypeFilter from './components/TypeFilter';
 
 function App() {
   const [cars, setCars] = useState([])
@@ -112,48 +108,8 @@ function App() {
         <div className='w-40'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
-            <div>
-              <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Transmission</h4>
-              <div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="All" value="All" checked={transmission === 'All'} onChange={handleTransmissionChange}/>
-                  <label htmlFor="All">All</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="Automatic" value="Automatic" checked={transmission === 'Automatic'} onChange={handleTransmissionChange}/>
-                  <label htmlFor="Automatic">Automatic</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="Manual" value="Manual" checked={transmission === 'Manual'} onChange={handleTransmissionChange}/>
-                  <label htmlFor="Manual">Manual</label>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Type</h4>
-              <div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="All" value="All" checked={type === 'All'} onChange={handleTypeChange}/>
-                  <label htmlFor="All">All</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Economy" value="Economy" checked={type === 'Economy'} onChange={handleTypeChange}/>
-                  <label htmlFor="Economy">Economy</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Sedan" value="Sedan" checked={type === 'Sedan'} onChange={handleTypeChange}/>
-                  <label htmlFor="Sedan">Sedan</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="SUV" value="SUV" checked={type === 'SUV'} onChange={handleTypeChange}/>
-                  <label htmlFor="SUV">SUV</label>
-                </div>
-                <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Luxury" value="Luxury" checked={type === 'Luxury'} onChange={handleTypeChange}/>
-                  <label htmlFor="Luxury">Luxury</label>
-                </div>
-              </div>
-            </div>
+            <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
+            <TypeFilter type={type} handleTypeChange={handleTypeChange}/>
           </div>
         </div>
         <div className='w-full'>
@@ -162,13 +118,7 @@ function App() {
               <div className='w-full'>
                 <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
               </div>
-              <div>
-                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40' value={sortByPrice} onChange={handleSortChange}>
-                  <option value="Default">Sort By Price</option>
-                  <option value="High">High to Low</option>
-                  <option value="Low">Low to High</option>
-                </select>
-              </div>
+              <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
             </div>
             <div className='mt-1 mb-4'>
               <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>
