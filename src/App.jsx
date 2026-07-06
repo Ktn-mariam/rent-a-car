@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import CarCard from './components/CarCard'
 import { GrPowerReset } from "react-icons/gr";
 import { GoAlertFill } from "react-icons/go";
+import { useSearchParams } from 'react-router-dom';
 
 // To add
 // Radio button options for Transmission (Automatic / Manual / All), Type (Economy / Sedan/ SUV / Luxury / All),
@@ -10,16 +11,19 @@ import { GoAlertFill } from "react-icons/go";
 // Search box
 // Reset Filter Button
 
-
 function App() {
   const [cars, setCars] = useState([])
   const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
-  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
-  const [transmission, setTransmission] = useState("All")
-  const [type, setType] = useState("All")
-  const [sortByPrice, setSortByPrice] = useState("Default")
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const transmission = searchParams.get('transmission') || 'All';
+  const type = searchParams.get('type') || 'All';
+  const sortByPrice = searchParams.get('sort') || 'Default';
+
+  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)  
+  
   useEffect(()=>{
     const fetchCars = async () => {
       const carsData = await fetch('/data/cars.json')
@@ -55,18 +59,48 @@ function App() {
   }, [transmission, type, sortByPrice, cars])
 
   const handleTransmissionChange = (event) => {
-    setTransmission(event.target.value);    
+    const value = event.target.value;
+    if (value === "All") {
+      handleParamChange("transmission", null)
+      return
+    }
+    handleParamChange("transmission", value)
   };
   
   const handleTypeChange = (event) => {
-    setType(event.target.value);
+    const value = event.target.value;
+    if (value === "All") {
+      handleParamChange("type", null)
+      return
+    }
+    handleParamChange("type", value)
   };
+  
+  const handleSortChange = (event) => {
+    const value = event.target.value;
+    if (value === "Default") {
+      handleParamChange("sort", null)
+    }
+    handleParamChange("sort", value)
+  }
 
   const handleResetFilters = () => {
-    setSortByPrice("Default")
-    setTransmission("All")
-    setType("All")
+    setSearchParams({});
   }
+
+  const handleParamChange = (key, value) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      
+      if (value) {
+        newParams.set(key, value);
+      } else {
+        newParams.delete(key);
+      }
+      
+      return newParams;
+    }, { replace: true });
+  };
 
   return (
     <div className='my-14 mx-20'>
@@ -128,7 +162,7 @@ function App() {
                 <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
               </div>
               <div>
-                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40' value={sortByPrice} onChange={(e) => setSortByPrice(e.target.value)}>
+                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40' value={sortByPrice} onChange={handleSortChange}>
                   <option value="Default">Sort By Price</option>
                   <option value="High">High to Low</option>
                   <option value="Low">Low to High</option>
