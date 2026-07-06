@@ -80,6 +80,7 @@ function App() {
     const value = event.target.value;
     if (value === "Default") {
       handleParamChange("sort", null)
+      return
     }
     handleParamChange("sort", value)
   }
