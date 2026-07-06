@@ -76,8 +76,20 @@ function App() {
         </div>
         <div>
           <div>
-            <div>
-              <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-3 py-2 w-3/4' />
+            <div className='flex gap-3 items-center justify-between'>
+              <div className='w-3/4'>
+                <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
+              </div>
+              <div>
+                <select name="cars" id="Sorting" className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-40'>
+                  <option value="Default">Sort By Price</option>
+                  <option value="High">High to Low</option>
+                  <option value="Low">Low to High</option>
+                </select>
+              </div>
+            </div>
+            <div className='mt-1 mb-4'>
+              <p className='italic'>Showing: <span className='font-semibold'>2 of 12 cars</span></p>
             </div>
           </div>
           <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-6 gap-x-6'>
