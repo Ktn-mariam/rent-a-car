@@ -5,7 +5,7 @@ const CarCard = ({ car }) => {
   const { name, type, transmission, seats, available, pricePerDay } = car;
   return (
     <div className="w-fit px-3 rounded-md py-3">
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between">
         <h2 className="text-lg font-bold uppercase">{name}</h2>
         <p><span className="font-semibold italic">{type}</span></p>
       </div>
