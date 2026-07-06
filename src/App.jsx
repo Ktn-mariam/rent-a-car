@@ -10,11 +10,14 @@ import CarCard from './components/CarCard'
 
 function App() {
   const [cars, setCars] = useState([])
+  const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
+  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
 
   useEffect(()=>{
     const fetchCars = async () => {
       const carsData = await fetch('/data/cars.json')
       const cars = await carsData.json()
+      setTotalCountOfCars(cars.length)
       setCars(cars)
     }
 
@@ -89,10 +92,10 @@ function App() {
               </div>
             </div>
             <div className='mt-1 mb-4'>
-              <p className='italic'>Showing: <span className='font-semibold'>2 of 12 cars</span></p>
+              <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>
             </div>
           </div>
-          <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-6 gap-x-6'>
+          <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
             {cars.map((car)=>{
               return <CarCard car={car} />
             })}
