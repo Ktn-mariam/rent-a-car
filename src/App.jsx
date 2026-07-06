@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import CarCard from './components/CarCard'
+import { GrPowerReset } from "react-icons/gr";
+import { GoAlertFill } from "react-icons/go";
 
 // To add
 // Radio button options for Transmission (Automatic / Manual / All), Type (Economy / Sedan/ SUV / Luxury / All),
 // Drop down for Sort by price: Low→High and High→Low.
 // Results counter: "Showing X of Y cars", updating live.
 // Search box
+// Reset Filter Button
 
 
 function App() {
@@ -58,6 +61,12 @@ function App() {
   const handleTypeChange = (event) => {
     setType(event.target.value);
   };
+
+  const handleResetFilters = () => {
+    setSortByPrice("Default")
+    setTransmission("All")
+    setType("All")
+  }
 
   return (
     <div className='my-14 mx-20'>
@@ -112,10 +121,10 @@ function App() {
             </div>
           </div>
         </div>
-        <div>
+        <div className='w-full'>
           <div>
             <div className='flex gap-3 items-center justify-between'>
-              <div className='w-3/4'>
+              <div className='w-full'>
                 <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
               </div>
               <div>
@@ -130,11 +139,21 @@ function App() {
               <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>
             </div>
           </div>
-          <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
-            {filteredCars.map((car, index)=>{
-              return <CarCard car={car} key={index} />
-            })}
-          </div>
+          {(filteredCars.length > 0) ?(
+            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
+              {filteredCars.map((car, index)=>{
+                return <CarCard car={car} key={index} />
+              })}
+            </div>
+          ) : (
+            <div className='flex flex-col items-center gap-5'>
+              <div className='flex flex-col items-center gap-1'>
+                <GoAlertFill size={"1.75em"}/>
+                <p className='text-center'>No cars to display for the filters selected. Would you like to reset the filters?</p>
+              </div>
+              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={handleResetFilters}><GrPowerReset /><p>Reset Filters</p></button>
+            </div>
+          )}
         </div>
       </div>
     </div>
