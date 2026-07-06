@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CarCard from './components/CarCard'
 
 // To add
@@ -9,12 +9,22 @@ import CarCard from './components/CarCard'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cars, setCars] = useState([])
+
+  useEffect(()=>{
+    const fetchCars = async () => {
+      const carsData = await fetch('/data/cars.json')
+      const cars = await carsData.json()
+      setCars(cars)
+    }
+
+    fetchCars()
+  }, [])
 
   return (
     <div className='my-14 mx-20'>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
+      <h1 className="text-3xl font-bold text-center">
+        RENT A CAR
       </h1>
       <div>
         <div className='my-5'>
@@ -22,13 +32,9 @@ function App() {
         </div>
       </div>
       <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-6 gap-x-6'>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
-        <CarCard/>
+        {cars.map((car)=>{
+          return <CarCard/>
+        })}
       </div>
     </div>
   )
