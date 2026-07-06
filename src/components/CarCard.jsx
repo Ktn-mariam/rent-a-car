@@ -7,15 +7,15 @@ const CarCard = ({ car }) => {
     <div className="w-fit border-gray-200 border-2 border-solid px-3 rounded-md py-3">
       <div>
         <h2 className="text-lg font-bold uppercase">{name}</h2>
-        <p>Type: <span className="font-bold">{type}</span></p>
+        <p>Type: <span className="font-semibold">{type}</span></p>
         <div className="flex gap-3">
           <div className="flex items-center gap-0.5">
             <FaGear />
-            <p className="p-0 m-0">{transmission}</p>
+            <p className="p-0 m-0 leading-none">{transmission}</p>
           </div>
           <div className="flex items-center gap-0.5">
             <MdEventSeat />
-            {seats}
+            <p className="p-0 m-0 leading-none">{seats}</p>
           </div>
           {(available) ? <p className="italic text-green-600">Available</p> :
           <p className="italic text-red-600">Not Available</p>}
@@ -27,7 +27,7 @@ const CarCard = ({ car }) => {
         </div>
       </div>
       <div>
-        Starting from <span className="font-bold">{pricePerDay}</span> AED/ Day
+        Starting from <span className="font-semibold">{pricePerDay}</span> AED/ Day
       </div>
     </div>
   )
