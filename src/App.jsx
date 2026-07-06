@@ -33,7 +33,7 @@ function App() {
       </div>
       <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-6 gap-x-6'>
         {cars.map((car)=>{
-          return <CarCard/>
+          return <CarCard car={car} />
         })}
       </div>
     </div>

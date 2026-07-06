@@ -1,23 +1,24 @@
 import { MdEventSeat } from "react-icons/md";
 import { FaGear } from "react-icons/fa6";
 
-const CarCard = () => {
+const CarCard = ({ car }) => {
+  const { name, type, transmission, seats, available, pricePerDay } = car;
   return (
     <div className="w-fit border-gray-200 border-2 border-solid px-3 rounded-md py-3">
       <div>
-        <h2 className="text-lg font-bold uppercase">Toyota Corolla</h2>
-        <p>Type: <span className="font-bold">Sedan</span></p>
+        <h2 className="text-lg font-bold uppercase">{name}</h2>
+        <p>Type: <span className="font-bold">{type}</span></p>
         <div className="flex gap-3">
           <div className="flex items-center gap-0.5">
             <FaGear />
-            <p className="p-0 m-0">Automatic</p>
+            <p className="p-0 m-0">{transmission}</p>
           </div>
           <div className="flex items-center gap-0.5">
             <MdEventSeat />
-            5
+            {seats}
           </div>
-          <p className="italic text-green-600">Available</p>
-          {/* <p className="italic text-red-600">Not Available</p> */}
+          {(available) ? <p className="italic text-green-600">Available</p> :
+          <p className="italic text-red-600">Not Available</p>}
         </div>
       </div>
       <div className="flex items-center justify-center mt-2">
@@ -26,7 +27,7 @@ const CarCard = () => {
         </div>
       </div>
       <div>
-        Starting from <span className="font-bold">130</span> AED/ Day
+        Starting from <span className="font-bold">{pricePerDay}</span> AED/ Day
       </div>
     </div>
   )
