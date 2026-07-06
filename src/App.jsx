@@ -10,8 +10,11 @@ import CarCard from './components/CarCard'
 
 function App() {
   const [cars, setCars] = useState([])
+  const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
+  const [transmission, setTransmission] = useState("All")
+  const [type, setType] = useState("All")
 
   useEffect(()=>{
     const fetchCars = async () => {
@@ -19,10 +22,34 @@ function App() {
       const cars = await carsData.json()
       setTotalCountOfCars(cars.length)
       setCars(cars)
+      setFilteredCars(cars)
     }
 
     fetchCars()
   }, [])
+
+  useEffect(()=>{
+    let filteredCars = cars;
+    if (transmission !== "All") {
+      filteredCars = cars.filter((car) => car.transmission === transmission)
+    }
+    if (type !== "All") {
+      filteredCars = filteredCars.filter((car) => car.type === type)
+    }
+    setFilteredCountOfCars(filteredCars.length);
+    setFilteredCars(filteredCars)
+  }, [transmission, type])
+
+  const handleTransmissionChange = (event) => {
+    setTransmission(event.target.value);
+    console.log(event.target.value);
+    
+  };
+  
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
+    console.log(event.target.value);
+  };
 
   return (
     <div className='my-14 mx-20'>
@@ -37,15 +64,15 @@ function App() {
               <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Transmission</h4>
               <div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="All" value="All" />
+                  <input type="radio" name="transmission" id="All" value="All" checked={transmission === 'All'} onChange={handleTransmissionChange}/>
                   <label htmlFor="All">All</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="Automatic" value="Automatic" />
+                  <input type="radio" name="transmission" id="Automatic" value="Automatic" checked={transmission === 'Automatic'} onChange={handleTransmissionChange}/>
                   <label htmlFor="Automatic">Automatic</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="transmission" id="Manual" value="Manual" />
+                  <input type="radio" name="transmission" id="Manual" value="Manual" checked={transmission === 'Manual'} onChange={handleTransmissionChange}/>
                   <label htmlFor="Manual">Manual</label>
                 </div>
               </div>
@@ -54,23 +81,23 @@ function App() {
               <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Type</h4>
               <div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="All" value="All" />
+                  <input type="radio" name="Type" id="All" value="All" checked={type === 'All'} onChange={handleTypeChange}/>
                   <label htmlFor="All">All</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Economy" value="Economy" />
+                  <input type="radio" name="Type" id="Economy" value="Economy" checked={type === 'Economy'} onChange={handleTypeChange}/>
                   <label htmlFor="Economy">Economy</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Sedan" value="Sedan" />
+                  <input type="radio" name="Type" id="Sedan" value="Sedan" checked={type === 'Sedan'} onChange={handleTypeChange}/>
                   <label htmlFor="Sedan">Sedan</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="SUV" value="SUV" />
+                  <input type="radio" name="Type" id="SUV" value="SUV" checked={type === 'SUV'} onChange={handleTypeChange}/>
                   <label htmlFor="SUV">SUV</label>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <input type="radio" name="Type" id="Luxury" value="Luxury" />
+                  <input type="radio" name="Type" id="Luxury" value="Luxury" checked={type === 'Luxury'} onChange={handleTypeChange}/>
                   <label htmlFor="Luxury">Luxury</label>
                 </div>
               </div>
@@ -96,7 +123,7 @@ function App() {
             </div>
           </div>
           <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
-            {cars.map((car)=>{
+            {filteredCars.map((car)=>{
               return <CarCard car={car} />
             })}
           </div>
