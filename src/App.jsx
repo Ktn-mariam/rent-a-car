@@ -17,6 +17,7 @@ function App() {
   const transmission = searchParams.get('transmission') || 'All';
   const type = searchParams.get('type') || 'All';
   const sortByPrice = searchParams.get('sort') || 'Default';
+  const availability = searchParams.get('availability') || 'False';
 
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)  
   
@@ -43,6 +44,10 @@ function App() {
       filteredCars = filteredCars.filter((car) => car.type === type)
     }
 
+    if (availability === "True") {
+      filteredCars = filteredCars.filter((car) => car.available === true)
+    }
+
     // Sorting logic based on price
     if (sortByPrice === "Low") {
       filteredCars = filteredCars.sort((a,b) => a.pricePerDay - b.pricePerDay)
@@ -52,7 +57,7 @@ function App() {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sortByPrice, cars])
+  }, [transmission, type, sortByPrice, cars, availability])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -81,6 +86,14 @@ function App() {
     handleParamChange("sort", value)
   }
 
+  const handleAvailabilityChange = () => {
+    if (availability === "True") {
+      handleParamChange("availability", null)
+      return
+    }
+    handleParamChange("availability", "True")
+  }
+
   const handleResetFilters = () => {
     setSearchParams({});
   }
@@ -105,11 +118,29 @@ function App() {
         RENT A CAR
       </h1>
       <div className='flex gap-10 my-5'>
-        <div className='w-40'>
+        <div className='w-56'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
             <TypeFilter type={type} handleTypeChange={handleTypeChange}/>
+            <div>
+              <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Availability</h4>
+              <div className='flex gap-2 items-center'>
+                <button
+                  onClick={handleAvailabilityChange}
+                  className={`w-8 h-4 flex items-center rounded-full p-0.5 transition-colors ${
+                    availability === "True" ? "bg-black" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`w-3 h-3 bg-white rounded-full transition-transform ${
+                      availability === "True" ? "translate-x-4" : ""
+                    }`}
+                    />
+                </button>
+                <p>Available Only</p>
+              </div>
+            </div>
           </div>
         </div>
         <div className='w-full'>
