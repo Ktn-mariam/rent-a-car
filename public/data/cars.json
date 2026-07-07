@@ -1,14 +1,14 @@
 [
-{ "id": 1, "name": "Toyota Corolla", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 35, "available": true },
-{ "id": 2, "name": "Hyundai Accent", "type": "Economy", "transmission": "Manual", "seats": 5, "pricePerDay": 28, "available": true },
-{ "id": 3, "name": "Kia Sportage", "type": "SUV", "transmission": "Automatic", "seats": 5, "pricePerDay": 55, "available": false },
-{ "id": 4, "name": "Nissan Sunny", "type": "Economy", "transmission": "Automatic", "seats": 5, "pricePerDay": 30, "available": true },
-{ "id": 5, "name": "Mercedes C-Class", "type": "Luxury", "transmission": "Automatic", "seats": 5, "pricePerDay": 120, "available": true },
-{ "id": 6, "name": "Toyota Land Cruiser", "type": "SUV", "transmission": "Automatic", "seats": 7, "pricePerDay": 150, "available": false },
-{ "id": 7, "name": "Chevrolet Malibu", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 45, "available": true },
-{ "id": 8, "name": "Mitsubishi Lancer", "type": "Sedan", "transmission": "Manual", "seats": 5, "pricePerDay": 32, "available": true },
-{ "id": 9, "name": "BMW 5 Series", "type": "Luxury", "transmission": "Automatic", "seats": 5, "pricePerDay": 130, "available": true },
-{ "id": 10, "name": "Hyundai Tucson", "type": "SUV", "transmission": "Automatic", "seats": 5, "pricePerDay": 60, "available": true },
-{ "id": 11, "name": "Kia Rio", "type": "Economy", "transmission": "Manual", "seats": 5, "pricePerDay": 26, "available": false },
-{ "id": 12, "name": "Toyota Camry", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 50, "available": true }
+{ "id": 1, "name": "Toyota Corolla", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 35, "available": true, "image": "https://aicarglobal.com/wp-content/uploads/2024/11/Toyota-Corolla-E-CVT-Hybrid-Elite-Version.jpg" },
+{ "id": 2, "name": "Hyundai Accent", "type": "Economy", "transmission": "Manual", "seats": 5, "pricePerDay": 28, "available": true,  "image": "https://knxgzyvaqgffnbjawmpv.supabase.co/storage/v1/object/public/car-images/1775812747473-qu6i7zpruv.webp"},
+{ "id": 3, "name": "Kia Sportage", "type": "SUV", "transmission": "Automatic", "seats": 5, "pricePerDay": 55, "available": false, "image": "https://media.motorfuse.com/img.cfm/type/3/img/0F16CD4A4E03DCD3CEE6ABC1C12B0910F5CB41" },
+{ "id": 4, "name": "Nissan Sunny", "type": "Economy", "transmission": "Automatic", "seats": 5, "pricePerDay": 30, "available": true, "image": "https://www.speedydrive.ae/files/images/ecommerce/nissan-sunny-2025-7.jpeg" },
+{ "id": 5, "name": "Mercedes C-Class", "type": "Luxury", "transmission": "Automatic", "seats": 5, "pricePerDay": 120, "available": true, "image": "https://cache1.arabwheels.ae/system/car_generation_pictures/24747/original/Cover.?1729746779" },
+{ "id": 6, "name": "Toyota Land Cruiser", "type": "SUV", "transmission": "Automatic", "seats": 7, "pricePerDay": 150, "available": false, "image": "https://s3-us-west-2.amazonaws.com/motoraty-media/newcars/listing/10174/2021-toyota-land-cruiser-suv-land-cruiser-exr-4.0l-%D8%AA%D9%88%D9%8A%D9%88%D8%AA%D8%A7-%D9%84%D8%A7%D9%86%D8%AF-%D9%83%D8%B1%D9%88%D8%B2%D8%B1-%D9%85%D8%AA%D8%B9%D8%AF%D8%AF%D8%A9-%D8%A7%D9%84%D8%A7%D8%BA%D8%B1%D8%A7%D8%B6-%D9%84%D8%A7%D9%86%D8%AF-%D9%83%D8%B1%D9%88%D8%B2%D8%B1-1587145615.7253.jpg" },
+{ "id": 7, "name": "Chevrolet Malibu", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 45, "available": true, "image": "https://images.hgmsites.net/hug/2011-chevrolet-malibu-4-door-sedan-ls-w-1ls-angular-front-exterior-view_100331005_h.jpg" },
+{ "id": 8, "name": "Mitsubishi Lancer", "type": "Sedan", "transmission": "Manual", "seats": 5, "pricePerDay": 32, "available": true, "image": "https://images.ctfassets.net/uaddx06iwzdz/29W7eK3SULlsBLnoG0XM41/0ece14d02f19e03fe5184e976f90e2aa/seo-ca-research-Mitsubishi-Lancer-2017-1.png" },
+{ "id": 9, "name": "BMW 5 Series", "type": "Luxury", "transmission": "Automatic", "seats": 5, "pricePerDay": 130, "available": true, "image": "https://images.dealer.com/ddc/vehicles/2025/BMW/530/Sedan/still/front-left/front-left-480-en_US.jpg?impolicy=downsize_bkpt&w=410" },
+{ "id": 10, "name": "Hyundai Tucson", "type": "SUV", "transmission": "Automatic", "seats": 5, "pricePerDay": 60, "available": true, "image": "https://uae.yallamotor.com/_next/image?url=https%3A%2F%2Fymimg1.b8cdn.com%2Fresized%2Fcar_model%2F3534%2Fpictures%2F3352214%2Fwebp_listing_main_01.webp&w=1920&q=75" },
+{ "id": 11, "name": "Kia Rio", "type": "Economy", "transmission": "Manual", "seats": 5, "pricePerDay": 26, "available": false, "image": "https://uae.yallamotor.com/_next/image?url=https%3A%2F%2Fymimg1.b8cdn.com%2Fresized%2Fcar_model%2F6385%2Fpictures%2F6206926%2Fwebp_listing_main_01.webp&w=1920&q=75" },
+{ "id": 12, "name": "Toyota Camry", "type": "Sedan", "transmission": "Automatic", "seats": 5, "pricePerDay": 50, "available": true, "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7a4hVblzPBVvL-n87PC3-na5vqxjdA1GDRMyImiIc2Q&s" }
 ]
