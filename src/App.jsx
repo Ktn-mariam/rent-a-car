@@ -11,6 +11,7 @@ function App() {
   const [cars, setCars] = useState([])
   const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
+  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)  
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -19,7 +20,6 @@ function App() {
   const sortByPrice = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
 
-  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)  
   
   useEffect(()=>{
     const fetchCars = async () => {
