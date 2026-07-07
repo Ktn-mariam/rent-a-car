@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import Sort from './components/Sort';
 import TransmissionFilter from './components/TransmissionFilter';
 import TypeFilter from './components/TypeFilter';
+import { IoIosSearch } from "react-icons/io";
 
 function App() {
   const [cars, setCars] = useState([])
@@ -147,7 +148,10 @@ function App() {
           <div>
             <div className='flex gap-3 items-center justify-between'>
               <div className='w-full'>
-                <input type="text" placeholder='Search...' className='border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full' />
+                <div className='flex items-center gap-2 border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full focus-within:border-gray-300 transition-colors'>
+                <IoIosSearch size={"1.5em"} color="lightgray" />
+                <input type="text" placeholder='Search...' className='border-none focus:outline-none' ></input>
+                </div>
               </div>
               <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
             </div>
