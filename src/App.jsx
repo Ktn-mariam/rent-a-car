@@ -187,7 +187,7 @@ function App() {
             </div>
           </div>
           {(filteredCars.length > 0) ?(
-            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 gap-x-10'>
+            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-8 gap-x-10'>
               {filteredCars.map((car, index)=>{
                 return <CarCard car={car} key={index} />
               })}
