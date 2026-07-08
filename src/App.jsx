@@ -66,6 +66,7 @@ function App() {
       filteredCars = filteredCars.sort((a, b) => b.pricePerDay - a.pricePerDay)
     }
 
+    // Search filter
     if (debouncedSearchText) {
       filteredCars = filteredCars.filter((car)=>{
         return car.name.toLowerCase().includes(debouncedSearchText.trim().toLowerCase())
