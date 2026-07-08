@@ -14,6 +14,6 @@
 This is a car rental platform. In this application, we mainly explore how to implement various filters in the frontend, such as filters, sorting, and searching.The URL changes whenever the filters are changed. One can also directly load the page with the filters and see desired results.
 
 <div display="flex" align="center">
-       <img src="" alt="image1" width="49%"/>
-       <img src="" alt="image2" width="49%"/>
+       <img src="https://github.com/user-attachments/assets/c0c2e000-6dd6-4f43-8b1a-7474fd20be8a" alt="image1" width="49%"/>
+       <img src="https://github.com/user-attachments/assets/2e463cc1-c25b-4a9e-a51d-a53407ffda21" alt="image2" width="49%"/>
 </div>
