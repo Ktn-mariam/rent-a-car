@@ -12,7 +12,8 @@ function App() {
   const [cars, setCars] = useState([])
   const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
-  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)  
+  const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
+  const [debouncedSearchText, setDebouncedSearchText] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -20,6 +21,7 @@ function App() {
   const type = searchParams.get('type') || 'All';
   const sortByPrice = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
+  const searchText = searchParams.get('search') || '';
 
   
   useEffect(()=>{
@@ -33,6 +35,14 @@ function App() {
 
     fetchCars()
   }, [])
+
+  useEffect(() => {
+    const timer = setTimeout(()=>{
+      setDebouncedSearchText(searchText)
+    }, 300)
+
+    return () => clearTimeout(timer);
+  }, [searchText]);
 
   useEffect(()=>{
     let filteredCars = cars;
@@ -56,9 +66,15 @@ function App() {
       filteredCars = filteredCars.sort((a, b) => b.pricePerDay - a.pricePerDay)
     }
 
+    if (debouncedSearchText) {
+      filteredCars = filteredCars.filter((car)=>{
+        return car.name.toLowerCase().includes(debouncedSearchText.trim().toLowerCase())
+      })
+    }
+
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sortByPrice, cars, availability])
+  }, [transmission, type, sortByPrice, cars, availability, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -86,7 +102,7 @@ function App() {
     }
     handleParamChange("sort", value)
   }
-
+  
   const handleAvailabilityChange = () => {
     if (availability === "True") {
       handleParamChange("availability", null)
@@ -94,9 +110,19 @@ function App() {
     }
     handleParamChange("availability", "True")
   }
-
+  
   const handleResetFilters = () => {
     setSearchParams({});
+  }
+  
+  const handleSearchTextChange = () => {
+    const value = event.target.value;
+    if (value.length === 0) {
+      handleParamChange("search", null)
+      return
+    }
+
+    handleParamChange("search", value)
   }
 
   const handleParamChange = (key, value) => {
@@ -150,7 +176,7 @@ function App() {
               <div className='w-full'>
                 <div className='flex items-center gap-2 border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full focus-within:border-gray-300 transition-colors'>
                 <IoIosSearch size={"1.5em"} color="lightgray" />
-                <input type="text" placeholder='Search...' className='border-none focus:outline-none' ></input>
+                <input type="text" placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
                 </div>
               </div>
               <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
