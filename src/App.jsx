@@ -177,7 +177,7 @@ function App() {
               <div className='w-full'>
                 <div className='flex items-center gap-2 border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full focus-within:border-gray-300 transition-colors'>
                 <IoIosSearch size={"1.5em"} color="lightgray" />
-                <input type="text" placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
+                <input type="text" defaultValue={searchText} placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
                 </div>
               </div>
               <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
@@ -187,7 +187,7 @@ function App() {
             </div>
           </div>
           {(filteredCars.length > 0) ?(
-            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-10 gap-x-10'>
+            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 gap-x-10'>
               {filteredCars.map((car, index)=>{
                 return <CarCard car={car} key={index} />
               })}
