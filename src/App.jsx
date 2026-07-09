@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import CarCard from './components/CarCard'
+import Sort from './components/Sort';
+import TypeFilter from './components/TypeFilter';
+import TransmissionFilter from './components/TransmissionFilter';
 import { GrPowerReset } from "react-icons/gr";
 import { GoAlertFill } from "react-icons/go";
-import { useSearchParams } from 'react-router-dom';
-import Sort from './components/Sort';
-import TransmissionFilter from './components/TransmissionFilter';
-import TypeFilter from './components/TypeFilter';
 import { IoIosSearch } from "react-icons/io";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 function App() {
   const [cars, setCars] = useState([])
@@ -23,7 +24,8 @@ function App() {
   const availability = searchParams.get('availability') || 'False';
   const searchText = searchParams.get('search') || '';
 
-  
+  const navigate = useNavigate();
+
   useEffect(()=>{
     const fetchCars = async () => {
       const carsData = await fetch('/data/cars.json')
@@ -116,7 +118,7 @@ function App() {
     setSearchParams({});
   }
   
-  const handleSearchTextChange = () => {
+  const handleSearchTextChange = (event) => {
     const value = event.target.value;
     if (value.length === 0) {
       handleParamChange("search", null)
@@ -137,15 +139,27 @@ function App() {
       }
       
       return newParams;
-    }, { replace: true });
+    });
   };
 
   return (
-    <div className='my-14 mx-20'>
-      <h1 className="text-3xl font-bold text-center">
-        RENT A CAR
-      </h1>
-      <div className='flex gap-10 my-5'>
+    <div className='mb-14'>
+      <div className='flex justify-between items-center mb-5 pb-7 pt-7 bg-black px-20'>
+        <h1 className="text-4xl font-bold text-center text-white">
+          Car Rental Platform
+        </h1>
+        <div className='flex items-center justify-center gap-2'>
+          <button className='flex items-center gap-1 text-white  hover:bg-zinc-800 px-3 py-2 rounded-md' onClick={()=>{window.history.back()}}>
+            <FaArrowLeft color='white' />
+            Back
+          </button>
+          <button className='flex items-center gap-1 text-white hover:bg-zinc-800 px-3 py-2 rounded-md' onClick={()=>{window.history.forward()}}>
+            <FaArrowRight color='white'/>
+            Forward
+          </button>
+        </div>
+      </div>
+      <div className='flex gap-10 my-5 mx-20'>
         <div className='w-56'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
