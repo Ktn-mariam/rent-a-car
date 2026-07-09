@@ -6,6 +6,8 @@ const Sort = ({sortByPrice, handleSortChange}) => {
         <option value="Default">Sort By Price</option>
         <option value="High">High to Low</option>
         <option value="Low">Low to High</option>
+        <option value="NameAtoZ">Name: A to Z</option>
+        <option value="NameZtoA">Name: Z to A</option>
       </select>
     </div>
   )

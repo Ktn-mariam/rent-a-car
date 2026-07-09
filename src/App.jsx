@@ -24,7 +24,7 @@ function App() {
 
   const transmission = searchParams.get('transmission') || 'All';
   const type = searchParams.get('type') || 'All';
-  const sortByPrice = searchParams.get('sort') || 'Default';
+  const sort = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
   const searchText = searchParams.get('search') || '';
 
@@ -35,7 +35,6 @@ function App() {
       try {
         const carsData = await fetch('/data/cars.json')
         const cars = await carsData.json()
-        throw new Error("API not working"); 
         setTotalCountOfCars(cars.length)
         setCars(cars)
         setFilteredCars(cars)
@@ -47,7 +46,7 @@ function App() {
     }
 
     fetchCars()
-  }, [])
+  }, [setLoading])
 
   useEffect(() => {
     const timer = setTimeout(()=>{
@@ -73,11 +72,15 @@ function App() {
     }
 
     // Sorting logic based on price
-    if (sortByPrice === "Low") {
+    if (sort === "Low") {
       filteredCars = filteredCars.sort((a,b) => a.pricePerDay - b.pricePerDay)
-    } else if (sortByPrice === "High") {
+    } else if (sort === "High") {
       filteredCars = filteredCars.sort((a, b) => b.pricePerDay - a.pricePerDay)
-    }
+    } else if (sort === "NameAtoZ"){
+      filteredCars = filteredCars.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sort === "NameZtoA"){
+      filteredCars = filteredCars.sort((a, b) => b.name.localeCompare(a.name))
+    }   
 
     // Search filter
     if (debouncedSearchText) {
@@ -88,7 +91,7 @@ function App() {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sortByPrice, cars, availability, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -205,7 +208,7 @@ function App() {
                 <input type="text" defaultValue={searchText} placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
                 </div>
               </div>
-              <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
+              <Sort sort={sort} handleSortChange={handleSortChange}/>
             </div>
             {!loading && !error && <div className='mt-1 mb-4'>
               <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>
@@ -213,9 +216,12 @@ function App() {
           </div>
           {loading && !error && <p className='text-center mt-5'>Loading data...</p>}
           {error && (
-            <div className='flex flex-col items-center gap-2 justify-center mt-10'>
-              <VscErrorCompact />
-              <p className='text-center'>Error loading data: {error.message}</p>
+            <div className='flex flex-col items-center gap-5 mt-10'>
+              <div className='flex flex-col items-center gap-1'>
+                <VscErrorCompact size={"1.2em"}/>
+                <p className='text-center'>Error loading data: {error.message}</p>
+              </div>
+              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={()=>{setLoading(true)}}><GrPowerReset /><p>Retry</p></button>
             </div>
           )}
           {(filteredCars.length > 0) && (
