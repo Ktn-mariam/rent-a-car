@@ -8,9 +8,13 @@ import { GrPowerReset } from "react-icons/gr";
 import { GoAlertFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { VscErrorCompact } from "react-icons/vsc";
 
 function App() {
   const [cars, setCars] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
@@ -28,11 +32,18 @@ function App() {
 
   useEffect(()=>{
     const fetchCars = async () => {
-      const carsData = await fetch('/data/cars.json')
-      const cars = await carsData.json()
-      setTotalCountOfCars(cars.length)
-      setCars(cars)
-      setFilteredCars(cars)
+      try {
+        const carsData = await fetch('/data/cars.json')
+        const cars = await carsData.json()
+        throw new Error("API not working"); 
+        setTotalCountOfCars(cars.length)
+        setCars(cars)
+        setFilteredCars(cars)
+      } catch (error) {
+        setError(error)
+      } finally {
+        setLoading(false)
+      }
     }
 
     fetchCars()
@@ -196,17 +207,25 @@ function App() {
               </div>
               <Sort sortByPrice={sortByPrice} handleSortChange={handleSortChange}/>
             </div>
-            <div className='mt-1 mb-4'>
+            {!loading && !error && <div className='mt-1 mb-4'>
               <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>
-            </div>
+            </div>}
           </div>
-          {(filteredCars.length > 0) ?(
+          {loading && !error && <p className='text-center mt-5'>Loading data...</p>}
+          {error && (
+            <div className='flex flex-col items-center gap-2 justify-center mt-10'>
+              <VscErrorCompact />
+              <p className='text-center'>Error loading data: {error.message}</p>
+            </div>
+          )}
+          {(filteredCars.length > 0) && (
             <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-8 gap-x-10'>
               {filteredCars.map((car, index)=>{
                 return <CarCard car={car} key={index} />
               })}
             </div>
-          ) : (
+          )}
+          {(!loading && !error && filteredCars.length === 0) && (
             <div className='flex flex-col items-center gap-5'>
               <div className='flex flex-col items-center gap-1'>
                 <GoAlertFill size={"1.75em"}/>
