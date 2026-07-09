@@ -1,13 +1,19 @@
 import { MdEventSeat } from "react-icons/md";
 import { FaGear } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa";
 
 const CarCard = ({ car }) => {
   const { name, type, transmission, seats, available, pricePerDay, image } = car;
   return (
     <div className="w-fit px-3 rounded-md py-3">
-      <div className="flex items-end justify-between">
-        <h2 className="text-lg font-bold uppercase">{name}</h2>
-        <p><span className="font-semibold italic">{type}</span></p>
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col justify-between">
+          <h2 className="text-lg font-bold uppercase">{name}</h2>
+          <p>Type: <span className="font-semibold italic">{type}</span></p>
+        </div>
+        <div className="mr-3">
+          <FaHeart color="lightgray" size={"1.2em"}/>
+        </div>
       </div>
       <div className="flex items-center justify-center mt-2">
         <div className="h-40 w-64 mb-3 flex items-center justify-center overflow-hidden rounded-sm">
