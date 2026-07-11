@@ -13,6 +13,7 @@ import { VscErrorCompact } from "react-icons/vsc";
 import Navbar from '../components/Navbar';
 import SeatFilter from '../components/SeatFilter';
 import OtherFilters from '../components/OtherFilters';
+import PriceRangeFilter from '../components/PriceRangeFilter';
 
 function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const [cars, setCars] = useState([])
@@ -32,6 +33,8 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const favourites = searchParams.get('favourites') || 'False';
   const searchText = searchParams.get('search') || '';
   const seats = searchParams.get('seats') || 'All';
+  const lowerRange = searchParams.get('lowerRange');
+  const upperRange = searchParams.get('upperRange');
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -96,6 +99,16 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
       filteredCars = filteredCars.filter((car)=> car.seats === Number(seats))
     }
 
+    // Price Lower Range
+    if (lowerRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay >= lowerRange)
+    }
+
+    // Price Upper Range
+    if (upperRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay <= upperRange)
+    }
+
     // Favourites only
     if (favourites === "True") {
       filteredCars = filteredCars.filter((car)=> favouriteCarIds.includes(car.id))
@@ -110,7 +123,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, lowerRange, upperRange, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -167,6 +180,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
             <TypeFilter type={type} handleParamChange={handleParamChange} />
             <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
+            <PriceRangeFilter lowerRange={lowerRange} upperRange={upperRange} handleParamChange={handleParamChange} />
             <OtherFilters favourites={favourites} availability={availability} handleParamChange={handleParamChange}/>
           </div>
         </div>
