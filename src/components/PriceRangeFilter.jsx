@@ -4,19 +4,19 @@ const PriceRangeFilter = ({lowerRange, upperRange, handleParamChange}) => {
   const handleLowerRangeInputChange = (event) => {
     const value = event.target.value
     if (value) {
-      handleParamChange("lowerRange", value)
+      handleParamChange("lowerPriceRange", value)
       return
     }
-    handleParamChange("lowerRange", null)
+    handleParamChange("lowerPriceRange", null)
   }
 
   const handleUpperRangeInputChange = (event) => {
     const value = event.target.value
     if (value) {
-      handleParamChange("upperRange", value)
+      handleParamChange("upperPriceRange", value)
       return
     }
-    handleParamChange("upperRange", null)
+    handleParamChange("upperPriceRange", null)
   }
 
   return (

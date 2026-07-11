@@ -33,8 +33,8 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const favourites = searchParams.get('favourites') || 'False';
   const searchText = searchParams.get('search') || '';
   const seats = searchParams.get('seats') || 'All';
-  const lowerRange = searchParams.get('lowerRange');
-  const upperRange = searchParams.get('upperRange');
+  const lowerPriceRange = searchParams.get('lowerPriceRange');
+  const upperPriceRange = searchParams.get('upperPriceRange');
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -100,13 +100,13 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     }
 
     // Price Lower Range
-    if (lowerRange) {
-      filteredCars = filteredCars.filter((car) => car.pricePerDay >= lowerRange)
+    if (lowerPriceRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay >= lowerPriceRange)
     }
 
     // Price Upper Range
-    if (upperRange) {
-      filteredCars = filteredCars.filter((car) => car.pricePerDay <= upperRange)
+    if (upperPriceRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay <= upperPriceRange)
     }
 
     // Favourites only
@@ -123,7 +123,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, lowerRange, upperRange, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, lowerPriceRange, upperPriceRange, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -180,7 +180,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
             <TypeFilter type={type} handleParamChange={handleParamChange} />
             <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
-            <PriceRangeFilter lowerRange={lowerRange} upperRange={upperRange} handleParamChange={handleParamChange} />
+            <PriceRangeFilter lowerRange={lowerPriceRange} upperRange={upperPriceRange} handleParamChange={handleParamChange} />
             <OtherFilters favourites={favourites} availability={availability} handleParamChange={handleParamChange}/>
           </div>
         </div>
