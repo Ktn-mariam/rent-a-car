@@ -11,6 +11,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { VscErrorCompact } from "react-icons/vsc";
 import Navbar from '../components/Navbar';
+import SeatFilter from '../components/SeatFilter';
+import FavouritesFilter from '../components/FavouritesFilter';
 
 function CarsPage() {
   const [cars, setCars] = useState([])
@@ -28,6 +30,7 @@ function CarsPage() {
   const sort = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
   const searchText = searchParams.get('search') || '';
+  const seats = searchParams.get('seats') || 'All';
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -81,6 +84,15 @@ function CarsPage() {
       filteredCars = filteredCars.sort((a, b) => b.name.localeCompare(a.name))
     }
 
+    // Seat filter
+    if (seats === "1to3") {
+      filteredCars = filteredCars.filter((car) => car.seats < 4)
+    } else if (seats === "moreThan7") {
+      filteredCars = filteredCars.filter((car)=> car.seats > 7)
+    } else if (seats !== "All") {
+      filteredCars = filteredCars.filter((car)=> car.seats === Number(seats))
+    }
+
     // Search filter
     if (debouncedSearchText) {
       filteredCars = filteredCars.filter((car) => {
@@ -90,7 +102,7 @@ function CarsPage() {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sort, cars, availability, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -163,6 +175,7 @@ function CarsPage() {
           <div className='flex flex-col gap-5 py-3'>
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
             <TypeFilter type={type} handleTypeChange={handleTypeChange} />
+            <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
             <div>
               <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Availability</h4>
               <div className='flex gap-2 items-center'>
