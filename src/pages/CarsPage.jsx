@@ -26,7 +26,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const transmission = searchParams.get('transmission') || 'All';
-  const type = searchParams.get('type') || 'All';
+  const type = searchParams.get("type") || 'All';
   const sort = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
   const favourites = searchParams.get('favourites') || 'False';
@@ -66,8 +66,10 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     if (transmission !== "All") {
       filteredCars = cars.filter((car) => car.transmission === transmission)
     }
+
+    const types = type.split("OR")
     if (type !== "All") {
-      filteredCars = filteredCars.filter((car) => car.type === type)
+      filteredCars = filteredCars.filter((car) => types.includes(car.type))
     }
 
     if (availability === "True") {
@@ -119,15 +121,6 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     handleParamChange("transmission", value)
   };
 
-  const handleTypeChange = (event) => {
-    const value = event.target.value;
-    if (value === "All") {
-      handleParamChange("type", null)
-      return
-    }
-    handleParamChange("type", value)
-  };
-
   const handleSortChange = (event) => {
     const value = event.target.value;
     if (value === "Default") {
@@ -172,7 +165,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
-            <TypeFilter type={type} handleTypeChange={handleTypeChange} />
+            <TypeFilter type={type} handleParamChange={handleParamChange} />
             <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
             <OtherFilters favourites={favourites} availability={availability} handleParamChange={handleParamChange}/>
           </div>
