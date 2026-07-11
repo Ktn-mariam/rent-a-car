@@ -173,8 +173,8 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
 
   return (
     <div className='mb-14'>
-      <div className='flex gap-10 my-5 sm:mx-20 mx-10'>
-        <div className='w-56'>
+      <div className='flex sm:gap-10 gap-5 my-5 sm:mx-20 mx-5'>
+        <div className='sm:w-56 min-w-40'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />

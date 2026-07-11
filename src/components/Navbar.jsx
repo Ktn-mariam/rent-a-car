@@ -5,7 +5,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className='flex justify-between items-center mb-5 py-4 bg-black px-20'>
+    <nav className='flex flex-col sm:flex-row justify-between items-center mb-5 py-4 bg-black sm:px-20 px-5'>
       <h1 className="text-3xl font-bold text-center text-white">
         Car Rental Platform
       </h1>

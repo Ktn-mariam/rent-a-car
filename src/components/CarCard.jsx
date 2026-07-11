@@ -40,7 +40,7 @@ const CarCard = ({ car, setFavouriteCarIds, favouriteCarIds }) => {
         </div>
       </div>
       <NavLink to={`/${id}`} className="flex items-center justify-center mt-2">
-        <div className="h-40 w-64 mb-3 flex items-center justify-center overflow-hidden rounded-sm">
+        <div className="sm:h-40 h-32 sm:w-64 w-56 mb-3 flex items-center justify-center overflow-hidden rounded-sm">
           <img src={image} alt="Car" className="object-cover w-full h-full" />
         </div>
       </NavLink>
