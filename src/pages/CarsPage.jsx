@@ -173,7 +173,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
 
   return (
     <div className='mb-14'>
-      <div className='flex gap-10 my-5 mx-20'>
+      <div className='flex gap-10 my-5 sm:mx-20 mx-10'>
         <div className='w-56'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
@@ -186,7 +186,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
         </div>
         <div className='w-full'>
           <div>
-            <div className='flex gap-3 items-center justify-between'>
+            <div className='flex gap-3 items-center justify-between flex-col sm:flex-row'>
               <div className='w-full'>
                 <div className='flex items-center gap-2 border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full focus-within:border-gray-300 transition-colors'>
                   <IoIosSearch size={"1.5em"} color="lightgray" />
