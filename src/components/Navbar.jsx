@@ -5,8 +5,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className='flex justify-between items-center mb-5 pb-7 pt-7 bg-black px-20'>
-      <h1 className="text-4xl font-bold text-center text-white">
+    <nav className='flex justify-between items-center mb-5 py-4 bg-black px-20'>
+      <h1 className="text-3xl font-bold text-center text-white">
         Car Rental Platform
       </h1>
       <div className='flex items-center justify-center gap-2'>
