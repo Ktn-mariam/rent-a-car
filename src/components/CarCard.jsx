@@ -1,25 +1,49 @@
 import { MdEventSeat } from "react-icons/md";
 import { FaGear } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa";
+import { GoHeart } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
+import { NavLink } from 'react-router-dom'
 
-const CarCard = ({ car }) => {
-  const { name, type, transmission, seats, available, pricePerDay, image } = car;
+const CarCard = ({ car, setFavouriteCarIds, favouriteCarIds }) => {
+  const { id, name, type, transmission, seats, available, pricePerDay, image } = car;
+
+  const isFavourite = favouriteCarIds.includes(id)
+
+  const handleAddToFavourites = () => {
+    setFavouriteCarIds((prevFavouriteCarIds) => {
+      return [...prevFavouriteCarIds, id]
+    })
+  }
+
+  const handleRemoveFromFavourites = () => {
+    setFavouriteCarIds((prevFavouriteCarIds)=>{
+      return prevFavouriteCarIds.filter((carid)=>carid !== id)
+    })
+  }
+
   return (
     <div className="w-fit px-3 rounded-md py-3">
       <div className="flex justify-between items-center">
-        <div className="flex flex-col justify-between">
+        <NavLink to={`/${id}`} className="flex flex-col justify-between">
           <h2 className="text-lg font-bold uppercase">{name}</h2>
           <p>Type: <span className="font-semibold italic">{type}</span></p>
-        </div>
+        </NavLink>
         <div className="mr-3">
-          <FaHeart color="lightgray" size={"1.2em"}/>
+          {isFavourite ? 
+          <button onClick={handleRemoveFromFavourites}>
+            <GoHeartFill className="text-red-500" size={"1.2em"}/> 
+          </button>
+          :
+          <button onClick={handleAddToFavourites}>
+            <GoHeart className="text-gray-400" size={"1.2em"}/>
+          </button>}
         </div>
       </div>
-      <div className="flex items-center justify-center mt-2">
+      <NavLink to={`/${id}`} className="flex items-center justify-center mt-2">
         <div className="h-40 w-64 mb-3 flex items-center justify-center overflow-hidden rounded-sm">
           <img src={image} alt="Car" className="object-cover w-full h-full" />
         </div>
-      </div>
+      </NavLink>
       <div className="flex gap-2">
           <div className="flex items-center gap-0.5 border-r-2 border-solid border-gray-300 pr-2">
             <FaGear />

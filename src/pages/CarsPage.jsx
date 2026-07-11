@@ -12,9 +12,9 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { VscErrorCompact } from "react-icons/vsc";
 import Navbar from '../components/Navbar';
 import SeatFilter from '../components/SeatFilter';
-import FavouritesFilter from '../components/FavouritesFilter';
+import OtherFilters from '../components/OtherFilters';
 
-function CarsPage() {
+function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const [cars, setCars] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -29,6 +29,7 @@ function CarsPage() {
   const type = searchParams.get('type') || 'All';
   const sort = searchParams.get('sort') || 'Default';
   const availability = searchParams.get('availability') || 'False';
+  const favourites = searchParams.get('favourites') || 'False';
   const searchText = searchParams.get('search') || '';
   const seats = searchParams.get('seats') || 'All';
 
@@ -93,6 +94,11 @@ function CarsPage() {
       filteredCars = filteredCars.filter((car)=> car.seats === Number(seats))
     }
 
+    // Favourites only
+    if (favourites === "True") {
+      filteredCars = filteredCars.filter((car)=> favouriteCarIds.includes(car.id))
+    }
+
     // Search filter
     if (debouncedSearchText) {
       filteredCars = filteredCars.filter((car) => {
@@ -102,7 +108,7 @@ function CarsPage() {
 
     setFilteredCountOfCars(filteredCars.length);
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sort, cars, availability, seats, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, debouncedSearchText])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -129,14 +135,6 @@ function CarsPage() {
       return
     }
     handleParamChange("sort", value)
-  }
-
-  const handleAvailabilityChange = () => {
-    if (availability === "True") {
-      handleParamChange("availability", null)
-      return
-    }
-    handleParamChange("availability", "True")
   }
 
   const handleResetFilters = () => {
@@ -176,22 +174,7 @@ function CarsPage() {
             <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
             <TypeFilter type={type} handleTypeChange={handleTypeChange} />
             <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
-            <div>
-              <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Availability</h4>
-              <div className='flex gap-2 items-center'>
-                <button
-                  onClick={handleAvailabilityChange}
-                  className={`w-8 h-4 flex items-center rounded-full p-0.5 transition-colors ${availability === "True" ? "bg-black" : "bg-gray-300"
-                    }`}
-                >
-                  <div
-                    className={`w-3 h-3 bg-white rounded-full transition-transform ${availability === "True" ? "translate-x-4" : ""
-                      }`}
-                  />
-                </button>
-                <p>Available Only</p>
-              </div>
-            </div>
+            <OtherFilters favourites={favourites} availability={availability} handleParamChange={handleParamChange}/>
           </div>
         </div>
         <div className='w-full'>
@@ -222,7 +205,7 @@ function CarsPage() {
           {(filteredCars.length > 0) && (
             <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-8 gap-x-10'>
               {filteredCars.map((car, index) => {
-                return <CarCard car={car} key={index} />
+                return <CarCard car={car} key={index} setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>
               })}
             </div>
           )}
