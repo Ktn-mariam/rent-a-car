@@ -23,6 +23,10 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
   const [debouncedSearchText, setDebouncedSearchText] = useState(null);
+  const [noOfPages, setNoOfPages] = useState(1)
+  const [currentDisplayOfCars, setcurrentDisplayOfCars] = useState([])
+  const [pagesArray, setPagesArray] = useState([])
+  const carsPerPage = 8;
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -35,6 +39,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const seats = searchParams.get('seats') || 'All';
   const lowerPriceRange = searchParams.get('lowerPriceRange');
   const upperPriceRange = searchParams.get('upperPriceRange');
+  const currentPage = searchParams.get('page') || '1';
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -120,10 +125,26 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
         return car.name.toLowerCase().includes(debouncedSearchText.trim().toLowerCase())
       })
     }
-
+    
     setFilteredCountOfCars(filteredCars.length);
+    setNoOfPages(Math.ceil(filteredCars.length / carsPerPage))
     setFilteredCars([...filteredCars])
   }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, lowerPriceRange, upperPriceRange, debouncedSearchText])
+
+  useEffect(()=>{
+    handleParamChange('page', null);
+  }, [transmission, type, sort, cars, availability, seats, favourites, lowerPriceRange, upperPriceRange, debouncedSearchText])
+  
+  useEffect(()=>{
+    if (Number(currentPage) > noOfPages || Number(currentPage) < 1 || isNaN(Number(currentPage))) {
+      handleParamChange('page', null)
+    }
+    setPagesArray(Array.from({ length: noOfPages }, (_, index) => index + 1));
+    const startIndex = (currentPage - 1) * carsPerPage;
+    const endIndex = startIndex + carsPerPage;
+    const currentCars = filteredCars.slice(startIndex, endIndex);
+    setcurrentDisplayOfCars([...currentCars])
+  }, [filteredCars, currentPage, noOfPages])
 
   const handleTransmissionChange = (event) => {
     const value = event.target.value;
@@ -155,6 +176,14 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     }
 
     handleParamChange("search", value)
+  }
+
+  const handlePageNumberChange = (pageNumber) => () => {
+    if (pageNumber === 1){
+      handleParamChange("page", null)
+    } else {
+      handleParamChange("page", pageNumber)
+    }
   }
 
   const handleParamChange = (key, value) => {
@@ -206,14 +235,25 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
                 <VscErrorCompact size={"1.2em"} />
                 <p className='text-center'>Error loading data: {error.message}</p>
               </div>
-              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={() => { setLoading(true) }}><GrPowerReset /><p>Retry</p></button>
+              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={() => setLoading(true)}><GrPowerReset /><p>Retry</p></button>
             </div>
           )}
           {(filteredCars.length > 0) && (
-            <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-8 gap-x-10'>
-              {filteredCars.map((car, index) => {
-                return <CarCard car={car} key={index} setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>
-              })}
+            <div className='flex flex-col gap-5'>
+              <div className='grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-8 gap-x-10'>
+                {currentDisplayOfCars.map((car, index) => {
+                  return <CarCard car={car} key={index} setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>
+                })}
+              </div>
+              <div className='flex gap-2 justify-center'>
+                {pagesArray.map((pageNumber) => {
+                  return (
+                    <button key={pageNumber} className={`px-3 py-1 rounded-md ${Number(currentPage) === pageNumber || currentPage === null ? 'bg-black text-white' : 'bg-gray-200 text-black'}`} onClick={handlePageNumberChange(pageNumber)}>
+                      {pageNumber}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           )}
           {(!loading && !error && filteredCars.length === 0) && (
