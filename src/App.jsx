@@ -8,9 +8,7 @@ const App = () => {
   const [favouriteCarIds, setFavouriteCarIds] = useState(JSON.parse(
   localStorage.getItem("favouriteCars")) || [])
 
-  useEffect(()=>{
-    console.log(favouriteCarIds);
-    
+  useEffect(()=>{    
     localStorage.setItem(
       "favouriteCars",
       JSON.stringify(favouriteCarIds)
