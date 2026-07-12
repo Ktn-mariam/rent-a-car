@@ -146,28 +146,6 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     setcurrentDisplayOfCars([...currentCars])
   }, [filteredCars, currentPage, noOfPages])
 
-  const handleTransmissionChange = (event) => {
-    const value = event.target.value;
-    if (value === "All") {
-      handleParamChange("transmission", null)
-      return
-    }
-    handleParamChange("transmission", value)
-  };
-
-  const handleSortChange = (event) => {
-    const value = event.target.value;
-    if (value === "Default") {
-      handleParamChange("sort", null)
-      return
-    }
-    handleParamChange("sort", value)
-  }
-
-  const handleResetFilters = () => {
-    setSearchParams({});
-  }
-
   const handleSearchTextChange = (event) => {
     const value = event.target.value;
     if (value.length === 0) {
@@ -184,6 +162,10 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     } else {
       handleParamChange("page", pageNumber)
     }
+  }
+
+  const handleResetFilters = () => {
+    setSearchParams({});
   }
 
   const handleParamChange = (key, value) => {
@@ -206,7 +188,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
         <div className='sm:w-56 min-w-40'>
           <h2 className='text-xl font-bold'>Filters</h2>
           <div className='flex flex-col gap-5 py-3'>
-            <TransmissionFilter transmission={transmission} handleTransmissionChange={handleTransmissionChange} />
+            <TransmissionFilter transmission={transmission} handleParamChange={handleParamChange} />
             <TypeFilter type={type} handleParamChange={handleParamChange} />
             <SeatFilter seats={seats} handleParamChange={handleParamChange}/>
             <PriceRangeFilter lowerRange={lowerPriceRange} upperRange={upperPriceRange} handleParamChange={handleParamChange} />
@@ -222,7 +204,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
                   <input type="text" defaultValue={searchText} placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
                 </div>
               </div>
-              <Sort sort={sort} handleSortChange={handleSortChange} />
+              <Sort sort={sort} handleParamChange={handleParamChange} />
             </div>
             {!loading && !error && <div className='mt-1 mb-4'>
               <p className='italic'>Showing: <span className='font-semibold'>{FilteredCountOfCars} of {TotalCountOfCars} cars</span></p>

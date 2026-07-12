@@ -1,5 +1,14 @@
 
-const TransmissionFilter = ({transmission, handleTransmissionChange}) => {
+const TransmissionFilter = ({transmission, handleParamChange}) => {
+  const handleTransmissionChange = (event) => {
+    const value = event.target.value;
+    if (value === "All") {
+      handleParamChange("transmission", null)
+      return
+    }
+    handleParamChange("transmission", value)
+  };
+
   return (
     <div>
       <h4 className='border-b-2 border-solid border-gray-200 mb-2 font-semibold'>Transmission</h4>
