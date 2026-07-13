@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
+import useDebounce from '../hooks/useDebounce'
 import CarCard from '../components/CarCard'
 import Sort from '../components/Sort';
 import TypeFilter from '../components/TypeFilter';
@@ -22,7 +23,6 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const [filteredCars, setFilteredCars] = useState([])
   const [TotalCountOfCars, setTotalCountOfCars] = useState(0)
   const [FilteredCountOfCars, setFilteredCountOfCars] = useState(0)
-  const [debouncedSearchText, setDebouncedSearchText] = useState(null);
   const [noOfPages, setNoOfPages] = useState(1)
   const [currentDisplayOfCars, setcurrentDisplayOfCars] = useState([])
   const [pagesArray, setPagesArray] = useState([])
@@ -40,6 +40,10 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const lowerPriceRange = searchParams.get('lowerPriceRange');
   const upperPriceRange = searchParams.get('upperPriceRange');
   const currentPage = searchParams.get('page') || '1';
+
+  const debouncedSearchText = useDebounce(searchText, 300);
+  const debouncedLowerPriceRange = useDebounce(lowerPriceRange, 500);
+  const debouncedUpperPriceRange = useDebounce(upperPriceRange, 500);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -105,13 +109,13 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     }
 
     // Price Lower Range
-    if (lowerPriceRange) {
-      filteredCars = filteredCars.filter((car) => car.pricePerDay >= lowerPriceRange)
+    if (debouncedLowerPriceRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay >= debouncedLowerPriceRange)
     }
 
     // Price Upper Range
-    if (upperPriceRange) {
-      filteredCars = filteredCars.filter((car) => car.pricePerDay <= upperPriceRange)
+    if (debouncedUpperPriceRange) {
+      filteredCars = filteredCars.filter((car) => car.pricePerDay <= debouncedUpperPriceRange)
     }
 
     // Favourites only
@@ -129,11 +133,11 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
     setFilteredCountOfCars(filteredCars.length);
     setNoOfPages(Math.ceil(filteredCars.length / carsPerPage))
     setFilteredCars([...filteredCars])
-  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, lowerPriceRange, upperPriceRange, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, favourites, favouriteCarIds, debouncedLowerPriceRange, debouncedUpperPriceRange, debouncedSearchText])
 
   useEffect(()=>{
     handleParamChange('page', null);
-  }, [transmission, type, sort, cars, availability, seats, favourites, lowerPriceRange, upperPriceRange, debouncedSearchText])
+  }, [transmission, type, sort, cars, availability, seats, favourites, debouncedLowerPriceRange, debouncedUpperPriceRange, debouncedSearchText])
   
   useEffect(()=>{
     if (Number(currentPage) > noOfPages || Number(currentPage) < 1 || isNaN(Number(currentPage))) {
