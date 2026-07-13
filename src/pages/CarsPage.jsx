@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import useDebounce from '../hooks/useDebounce'
+import fetchCars from '../api/fetchCars'
 import CarCard from '../components/CarCard'
 import Sort from '../components/Sort';
 import TypeFilter from '../components/TypeFilter';
@@ -46,10 +47,9 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const debouncedUpperPriceRange = useDebounce(upperPriceRange, 500);
 
   useEffect(() => {
-    const fetchCars = async () => {
+    const getCars = async () => {
       try {
-        const carsData = await fetch('/data/cars.json')
-        const cars = await carsData.json()
+        const cars = await fetchCars();
         setTotalCountOfCars(cars.length)
         setCars(cars)
         setFilteredCars(cars)
@@ -60,7 +60,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
       }
     }
 
-    fetchCars()
+    getCars()
   }, [setLoading])
 
   useEffect(() => {
