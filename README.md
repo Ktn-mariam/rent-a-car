@@ -17,3 +17,22 @@ This is a car rental platform. In this application, we mainly explore how to imp
        <img src="https://github.com/user-attachments/assets/db578ac8-a8ea-4ebf-9647-4544941a7ba6" alt="image1" width="49%"/>
        <img src="https://github.com/user-attachments/assets/d60e3c25-91c7-4505-acba-46e0ae35a0fc" alt="image2" width="49%"/>
 </div>
+
+## Installation
+1. Clone this repository by running the following command in your terminal:
+```
+git clone https://github.com/Ktn-mariam/rent-a-car.git
+cd rent-a-car
+```
+2. Run the following command to install the dependencies:
+```
+npm install
+```
+
+
+## ▶️ Run the project
+
+1. To run the project, run the following in your terminal:
+```
+npm run dev
+```
