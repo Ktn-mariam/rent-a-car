@@ -46,22 +46,26 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   const debouncedLowerPriceRange = useDebounce(lowerPriceRange, 500);
   const debouncedUpperPriceRange = useDebounce(upperPriceRange, 500);
 
-  useEffect(() => {
-    const getCars = async () => {
-      try {
-        const cars = await fetchCars();
-        setTotalCountOfCars(cars.length)
-        setCars(cars)
-        setFilteredCars(cars)
-      } catch (error) {
-        setError(error)
-      } finally {
-        setLoading(false)
-      }
-    }
+  const getCars = async () => {
+    setError(null)
+    setLoading(true)
+    
+    try {
+      const cars = await fetchCars();
+      setTotalCountOfCars(cars.length)
+      setCars(cars)
+      setFilteredCars(cars)
 
+    } catch (error) {
+      setError(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     getCars()
-  }, [setLoading])
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -221,7 +225,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
                 <VscErrorCompact size={"1.2em"} />
                 <p className='text-center'>Error loading data: {error.message}</p>
               </div>
-              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={() => setLoading(true)}><GrPowerReset /><p>Retry</p></button>
+              <button className='bg-black text-white rounded-md px-3 py-1 flex gap-2 items-center hover:cursor-pointer' onClick={() => getCars()}><GrPowerReset /><p>Retry</p></button>
             </div>
           )}
           {(filteredCars.length > 0) && (

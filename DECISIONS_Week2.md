@@ -2,6 +2,7 @@
 
 ***1. Your async layer has loading, error, and empty states. How does each one get triggered, and how does Retry re-run the load without leaving stale UI behind?***
 
+A: 
 
 _____
 ***2. How does a car reach the detail page, and how does /cars/6 work in a fresh tab with no prior list state? What happens for an unknown id?***
