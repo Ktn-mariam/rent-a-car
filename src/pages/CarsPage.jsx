@@ -209,7 +209,7 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
               <div className='w-full'>
                 <div className='flex items-center gap-2 border-2 border-gray-200 border-solid rounded-md px-2 py-1 w-full focus-within:border-gray-300 transition-colors'>
                   <IoIosSearch size={"1.5em"} color="lightgray" />
-                  <input type="text" defaultValue={searchText} placeholder='Search...' className='border-none focus:outline-none' onChange={handleSearchTextChange}></input>
+                  <input type="text" defaultValue={searchText} placeholder='Search...' className='border-none w-full focus:outline-none' onChange={handleSearchTextChange}></input>
                 </div>
               </div>
               <Sort sort={sort} handleParamChange={handleParamChange} />
