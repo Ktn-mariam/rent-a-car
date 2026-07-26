@@ -5,6 +5,7 @@ import CarDetailPage from './pages/CarDetailPage'
 import Navbar from './components/Navbar'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LogInPage'
+import { AuthenticationContextProvider } from './context/auth'
 
 const App = () => {
   const [favouriteCarIds, setFavouriteCarIds] = useState(JSON.parse(
@@ -18,15 +19,17 @@ const App = () => {
   }, [favouriteCarIds])
   
   return (
-    <BrowserRouter>
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-        <Route path="/signup" element={<SignUpPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-      </Routes>
-    </BrowserRouter>
+    <AuthenticationContextProvider>
+      <BrowserRouter>
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+          <Route path="/signup" element={<SignUpPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+        </Routes>
+      </BrowserRouter>
+    </AuthenticationContextProvider>
   )
 }
 
