@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, year}) => {
+const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, year, setTotalPrice, pricePerDay}) => {
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   const monthText = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -12,14 +12,18 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
   const handleSelectDate = (date) => {
     if (!startDate) {
       setStartDate(date)
+      setTotalPrice(0)
       setSelectedDates([date.getTime()])
     } else if (startDate && endDate) {
       setStartDate(date)
       setEndDate(null)
+      setTotalPrice(0)
       setSelectedDates([date.getTime()])
     } else {
       setEndDate(date);
-      setSelectedDates(getDatesInRange(startDate, date));
+      const rangeOfDates = getDatesInRange(startDate, date)
+      setSelectedDates(rangeOfDates);
+      setTotalPrice(pricePerDay * rangeOfDates.length)
     }
   }
 

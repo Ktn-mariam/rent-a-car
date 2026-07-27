@@ -3,11 +3,8 @@ import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
 
 
-const DateSelection = ({setWizardStepNumber}) => {
+const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
   const today = new Date();
-
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
   const [month, setMonth] = useState(today.getMonth())
   const [year, setYear] = useState(today.getFullYear())
   const [datesInMonthArray, setDatesInMonthArray] = useState([])
@@ -44,7 +41,18 @@ const DateSelection = ({setWizardStepNumber}) => {
       <p>Select a range of dates you want to book your car:</p>
       <div className="flex flex-col items-center gap-10">
         <div className="flex justify-center">
-          {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate} month={month} year={year}/>}
+          {datesInMonthArray.length > 0 && 
+          <Calender 
+            datesInMonthArray={datesInMonthArray} 
+            startDate={startDate} 
+            setStartDate={setStartDate} 
+            setEndDate={setEndDate} 
+            endDate={endDate} 
+            month={month} 
+            year={year}
+            setTotalPrice={setTotalPrice}
+            pricePerDay={pricePerDay}
+          />}
         </div>
         <div className="flex gap-3 w-full">
           <div className="flex flex-col gap-1 flex-1">
@@ -57,7 +65,7 @@ const DateSelection = ({setWizardStepNumber}) => {
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">Price:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>AED 234</div>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>AED {totalPrice}</div>
           </div>
         </div>
       </div>

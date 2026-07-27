@@ -19,6 +19,12 @@ const BookingPage = () => {
   const [carDetail, setCarDetail] = useState(null)
   const { carid } = useParams()
   const [wizardStepNumber, setWizardStepNumber] = useState(1)
+
+  // Booking Details
+  // Dates
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [totalPrice, setTotalPrice] = useState(0)
   let id = Number(carid)
 
   useEffect(() => {
@@ -96,7 +102,17 @@ const BookingPage = () => {
               <div className={`px-3 py-1 rounded-3xl ${wizardStepNumber === 3 ? 'bg-sky-400 text-white': 'bg-sky-200'}`}>3</div>
             </div>
           </div>
-            {wizardStepNumber === 1 && <DateSelection setWizardStepNumber={setWizardStepNumber}/>}
+            {wizardStepNumber === 1 && 
+              <DateSelection 
+                setWizardStepNumber={setWizardStepNumber} 
+                startDate={startDate} 
+                setStartDate={setStartDate} 
+                endDate={endDate} 
+                setEndDate={setEndDate}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
+                pricePerDay={carDetail.pricePerDay}
+              />}
             {wizardStepNumber === 2 && <DriverDetails setWizardStepNumber={setWizardStepNumber}/>}
             {wizardStepNumber === 3 && <Confirmation setWizardStepNumber={setWizardStepNumber}/>}
         </div>
