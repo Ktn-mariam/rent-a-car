@@ -39,13 +39,16 @@ const DateSelection = () => {
   }
 
   return (
-    <div className="flex mb-40 items-center gap-10">
-      <div className="flex justify-center w-1/2">
-        {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate}/>}
-      </div>
-      <div className="flex justify-between w-1/2">
-        <div>From: <span>{formatDate(startDate)}</span></div>
-        <div>To: <span>{formatDate(endDate)}</span></div>
+    <div className="flex gap-5 flex-col">
+      <p>Select a range of dates you want to book your car:</p>
+      <div className="flex mb-40 items-center gap-10">
+        <div className="flex justify-center w-1/2">
+          {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate}/>}
+        </div>
+        <div className="flex gap-10 w-1/2">
+          <div>From: <span>{formatDate(startDate)}</span></div>
+          <div>To: <span>{formatDate(endDate)}</span></div>
+        </div>
       </div>
     </div>
   )
