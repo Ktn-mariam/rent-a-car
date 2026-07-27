@@ -3,11 +3,12 @@ import Calender from "./Calender"
 
 
 const DateSelection = () => {
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
-  const [month, setMonth] = useState(6)
-  const [date, setDate] = useState(null)
-  const [year, setYear] = useState(2026)
+  const today = new Date();
+
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [month, setMonth] = useState(today.getMonth())
+  const [year, setYear] = useState(today.getFullYear())
   const [datesInMonthArray, setDatesInMonthArray] = useState([])
   
   useEffect(()=>{
@@ -19,15 +20,33 @@ const DateSelection = () => {
     const date = new Date(year, month, 1);
   
     while (date.getMonth() === month) {
-      dates.push(new Date(date)); // Clone the date object
-      date.setDate(date.getDate() + 1); // Move to the next day
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1); 
     }
     return dates;
   }
 
+  const formatDate = (date) => {
+    if (!date) {
+      return 'YYYY-MM-DD'
+    }
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+    return formattedDate
+  }
+
   return (
-    <div className="w-full">
-      {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray}/>}
+    <div className="flex mb-40 items-center gap-10">
+      <div className="flex justify-center w-1/2">
+        {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate}/>}
+      </div>
+      <div className="flex justify-between w-1/2">
+        <div>From: <span>{formatDate(startDate)}</span></div>
+        <div>To: <span>{formatDate(endDate)}</span></div>
+      </div>
     </div>
   )
 }
