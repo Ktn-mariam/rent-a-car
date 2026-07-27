@@ -42,17 +42,27 @@ const DateSelection = ({setWizardStepNumber}) => {
   return (
     <div className="flex gap-5 flex-col">
       <p>Select a range of dates you want to book your car:</p>
-      <div className="flex items-center gap-10">
-        <div className="flex justify-center w-1/2">
+      <div className="flex flex-col items-center gap-10">
+        <div className="flex justify-center">
           {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate} month={month} year={year}/>}
         </div>
-        <div className="flex gap-10 w-1/2">
-          <div>From: <span>{formatDate(startDate)}</span></div>
-          <div>To: <span>{formatDate(endDate)}</span></div>
+        <div className="flex gap-3 w-full">
+          <div className="flex flex-col gap-1 flex-1">
+            <label htmlFor="">From:</label>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
+          </div>
+          <div className="flex flex-col gap-1 flex-1">
+            <label htmlFor="">To:</label>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
+          </div>
+          <div className="flex flex-col gap-1 flex-1">
+            <label htmlFor="">Price:</label>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>AED 234</div>
+          </div>
         </div>
       </div>
       <div className="flex items-end justify-end">
-        <button onClick={()=> setWizardStepNumber(2)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
+        <button onClick={()=> setWizardStepNumber(2)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer'>
           <p>Next</p>
           <FaArrowRight />
         </button>
