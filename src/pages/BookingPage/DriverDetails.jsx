@@ -4,7 +4,17 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 const DriverDetails = ({setWizardStepNumber}) => {
   const nameRef = useRef(null)
   const mobileNoRef = useRef(null)
-  const LicenseRef = useRef(null)
+  const licenseRef = useRef(null)
+
+  const handleNextButton = () => {
+    const nameInput = nameRef.current.value;
+    const mobileNoInput = mobileNoRef.current.value;
+    const licenseInput = LicenseRef.current.value;
+
+    const DriverDetails = {name: nameInput, mobileNo: mobileNoInput, licenseNo: licenseInput}
+
+    setWizardStepNumber(3)
+  }
 
   return (
     <div className="w-full">
@@ -28,7 +38,7 @@ const DriverDetails = ({setWizardStepNumber}) => {
           <FaArrowLeft />
           <p>Prev</p>
         </button>
-        <button onClick={()=> setWizardStepNumber(2)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
+        <button onClick={handleNextButton} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
           <p>Next</p>
           <FaArrowRight />
         </button>
