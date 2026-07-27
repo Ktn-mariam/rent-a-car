@@ -86,7 +86,7 @@ const BookingPage = () => {
           </div>
         </div>
         <div className='w-full'>
-          <div className='w-full mb-7 border-b-2 border-solid border-gray-200 pb-2 flex justify-between items-center'>
+          <div className='w-full mb-4 border-b-2 border-solid border-gray-200 pb-2 flex justify-between items-center'>
             <h1 className='text-4xl font-bold italic'>Booking</h1>
             <div className='flex items-center'>
               <div className={`px-3 py-1 rounded-3xl ${wizardStepNumber === 1 ? 'bg-sky-400 text-white': 'bg-sky-200'}`}>1</div>
