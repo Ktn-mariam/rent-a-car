@@ -61,7 +61,7 @@ const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, se
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">To:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(endDate)}</div>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">Price:</label>
