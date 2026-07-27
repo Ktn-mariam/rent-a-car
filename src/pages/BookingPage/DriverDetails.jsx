@@ -36,7 +36,7 @@ const DriverDetails = ({setWizardStepNumber}) => {
       <div className="flex gap-3 items-end justify-end">
         <button onClick={()=> setWizardStepNumber(1)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
           <FaArrowLeft />
-          <p>Prev</p>
+          <p>Back</p>
         </button>
         <button onClick={handleNextButton} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
           <p>Next</p>
