@@ -7,7 +7,7 @@ const Confirmation = ({setWizardStepNumber}) => {
     <div>
       <p className="mb-3">Confirm Booking Details:</p>
       <p className="border-b-2 border-zinc-200 mb-3">Selected Dates</p>
-      <div className="flex gap-10">
+      <div className="flex gap-3">
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">From:</label>
           <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>24-45-2019</div>
