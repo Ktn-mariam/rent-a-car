@@ -98,7 +98,7 @@ const BookingPage = () => {
           </div>
             {wizardStepNumber === 1 && <DateSelection setWizardStepNumber={setWizardStepNumber}/>}
             {wizardStepNumber === 2 && <DriverDetails setWizardStepNumber={setWizardStepNumber}/>}
-            {wizardStepNumber === 3 && <Confirmation/>}
+            {wizardStepNumber === 3 && <Confirmation setWizardStepNumber={setWizardStepNumber}/>}
         </div>
       </div>}
     </div>
