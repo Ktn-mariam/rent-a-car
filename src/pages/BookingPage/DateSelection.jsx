@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Calender from "./Calender"
+import { FaArrowRight } from "react-icons/fa";
 
 
 const DateSelection = () => {
@@ -41,14 +42,20 @@ const DateSelection = () => {
   return (
     <div className="flex gap-5 flex-col">
       <p>Select a range of dates you want to book your car:</p>
-      <div className="flex mb-40 items-center gap-10">
+      <div className="flex items-center gap-10">
         <div className="flex justify-center w-1/2">
-          {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate}/>}
+          {datesInMonthArray.length > 0 && <Calender datesInMonthArray={datesInMonthArray} startDate={startDate} setStartDate={setStartDate} setEndDate={setEndDate} endDate={endDate} month={month} year={year}/>}
         </div>
         <div className="flex gap-10 w-1/2">
           <div>From: <span>{formatDate(startDate)}</span></div>
           <div>To: <span>{formatDate(endDate)}</span></div>
         </div>
+      </div>
+      <div className="flex items-end justify-end">
+        <button className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
+          <p>Next</p>
+          <FaArrowRight />
+        </button>
       </div>
     </div>
   )

@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-
-const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate}) => {
+const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, year}) => {
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+  const monthText = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
   const firstDay = datesInMonthArray[0].getDay()
   const rangeFromFirstDay = Array.from({ length: firstDay }, (_, index) => index + 1)
   const [selectedDates, setSelectedDates] = useState([])
@@ -34,17 +36,25 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
   };
 
   return (
-    <div className="w-96 grid grid-cols-7 gap-x-1 gap-y-5 items-center justify-center">
-      {daysOfWeek.map((day, index)=>{
-        return <div className="text-center">{day}</div>
-      })}
-      {rangeFromFirstDay.map((number, index)=>{
-        return <div key={index}></div>
-      })}
-      {datesInMonthArray.map((date, index) => {
-        return (
-          <button className={`${selectedDates.includes(date.getTime()) ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => handleSelectDate(date)} key={index}>{date.getDate()}</button>
-      )})}
+    <div className="w-96">
+      <div className="flex justify-around bg-black">
+        <button><FaArrowLeft className="text-white"/></button>
+        <p className="text-white">{monthText[month]}</p>
+        <p className="text-white">{year}</p>
+        <button><FaArrowRight className="text-white"/></button>
+      </div>
+      <div className="grid grid-cols-7 gap-x-1 gap-y-5">
+        {daysOfWeek.map((day, index)=>{
+          return <div className="text-center">{day}</div>
+        })}
+        {rangeFromFirstDay.map((number, index)=>{
+          return <div key={index}></div>
+        })}
+        {datesInMonthArray.map((date, index) => {
+          return (
+            <button className={`${selectedDates.includes(date.getTime()) ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => handleSelectDate(date)} key={index}>{date.getDate()}</button>
+        )})}
+      </div>
     </div>
   )
 }
