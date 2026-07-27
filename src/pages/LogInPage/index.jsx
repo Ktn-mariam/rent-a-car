@@ -1,13 +1,19 @@
 import { MdAccountCircle, MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthenticationContext from "../../context/auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const { loginHandler } = useContext(AuthenticationContext);
+
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
+
+  const navigate = useNavigate();
 
   const checkInputsHandler = (event) => {
     event.preventDefault()
@@ -23,6 +29,20 @@ const LoginPage = () => {
     if (passwordInput.length === 0) {
       setPasswordError('Please enter the password')
     }
+    
+    if (emailInput.length > 0 && emailRegex.test(emailInput)) {
+      setEmailError(null)
+    }
+
+    if (passwordInput.length > 0) {
+      setPasswordError(null)
+    }
+    
+    if (emailInput.length === 0 || !emailRegex.test(emailInput) || passwordInput.length === 0) {
+      return
+    }
+
+    loginHandler
   }
 
   return (
