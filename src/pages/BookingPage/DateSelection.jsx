@@ -3,7 +3,7 @@ import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
 
 
-const DateSelection = () => {
+const DateSelection = ({setWizardStepNumber}) => {
   const today = new Date();
 
   const [startDate, setStartDate] = useState(null)
@@ -52,7 +52,7 @@ const DateSelection = () => {
         </div>
       </div>
       <div className="flex items-end justify-end">
-        <button className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
+        <button onClick={()=> setWizardStepNumber(2)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
           <p>Next</p>
           <FaArrowRight />
         </button>

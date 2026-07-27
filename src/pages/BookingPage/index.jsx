@@ -96,7 +96,7 @@ const BookingPage = () => {
               <div className={`px-3 py-1 rounded-3xl ${wizardStepNumber === 3 ? 'bg-sky-400 text-white': 'bg-sky-200'}`}>3</div>
             </div>
           </div>
-            {wizardStepNumber === 1 && <DateSelection/>}
+            {wizardStepNumber === 1 && <DateSelection setWizardStepNumber={setWizardStepNumber}/>}
             {wizardStepNumber === 2 && <DriverDetails/>}
             {wizardStepNumber === 3 && <Confirmation/>}
         </div>
