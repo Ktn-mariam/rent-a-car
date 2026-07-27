@@ -24,7 +24,7 @@ const CarCard = ({ car, setFavouriteCarIds, favouriteCarIds }) => {
   return (
     <div className="w-fit px-3 rounded-md py-3">
       <div className="flex justify-between items-center">
-        <NavLink to={`/${id}`} className="flex flex-col justify-between">
+        <NavLink to={`/cars/${id}`} className="flex flex-col justify-between">
           <h2 className="text-lg font-bold uppercase">{name}</h2>
           <p>Type: <span className="font-semibold italic">{type}</span></p>
         </NavLink>
@@ -39,7 +39,7 @@ const CarCard = ({ car, setFavouriteCarIds, favouriteCarIds }) => {
           </button>}
         </div>
       </div>
-      <NavLink to={`/${id}`} className="flex items-center justify-center mt-2">
+      <NavLink to={`/cars/${id}`} className="flex items-center justify-center mt-2">
         <div className="sm:h-40 h-32 sm:w-64 w-56 mb-3 flex items-center justify-center overflow-hidden rounded-sm">
           <img src={image} alt="Car" className="object-cover w-full h-full" />
         </div>
