@@ -8,6 +8,7 @@ import { GoAlertFill } from "react-icons/go";
 import { TiTick } from "react-icons/ti";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
+import { NavLink } from 'react-router-dom'
 
 const CarDetailPage = ({favouriteCarIds, setFavouriteCarIds}) => {
   const [loading, setLoading] = useState(true)
@@ -104,7 +105,9 @@ const CarDetailPage = ({favouriteCarIds, setFavouriteCarIds}) => {
           <p className='italic mb-1'>Description</p>
           <p>Experience comfort, performance, and reliability with this well-maintained vehicle, perfect for every journey. Whether you're planning a weekend getaway, a business trip, or simply need a dependable car for daily travel, this vehicle offers a smooth and enjoyable driving experience. Featuring a spacious interior, modern technology, excellent fuel efficiency, and advanced safety features, it is designed to make every trip comfortable and stress-free. The car is regularly serviced and thoroughly cleaned before every rental, ensuring it arrives in excellent condition. Book today and enjoy flexible rental options, competitive pricing, and a vehicle you can trust for every mile.
           </p>
-          <button className='bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'><p>Book this car</p></button>
+          <NavLink to={`/cars/${id}/booking`}>
+            <button className='bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'><p>Book this car</p></button>
+          </NavLink>
         </div>
       </div>}
     </div>
