@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LogInPage'
 import { AuthenticationContextProvider } from './context/auth'
+import { BookingsContextProvider } from './context/bookings'
 import BookingPage from './pages/BookingPage'
 
 const App = () => {
@@ -21,16 +22,18 @@ const App = () => {
   
   return (
     <AuthenticationContextProvider>
-      <BrowserRouter>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-          <Route path="/signup" element={<SignUpPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/cars/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-          <Route path="/cars/:carid/booking" element={<BookingPage/>}/>
-        </Routes>
-      </BrowserRouter>
+      <BookingsContextProvider>
+        <BrowserRouter>
+          <Navbar/>
+          <Routes>
+            <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+            <Route path="/signup" element={<SignUpPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/cars/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+            <Route path="/cars/:carid/booking" element={<BookingPage/>}/>
+          </Routes>
+        </BrowserRouter>
+      </BookingsContextProvider>
     </AuthenticationContextProvider>
   )
 }
