@@ -57,8 +57,8 @@ const BookingPage = () => {
   }, [])
 
   const handleConfirmBooking = () => {
-    const booking = {carId: id, startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
-    console.log(booking);
+    const booking = { startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
+    handleAddToBookings(booking)
   }
 
 
