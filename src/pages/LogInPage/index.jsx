@@ -42,7 +42,11 @@ const LoginPage = () => {
       return
     }
 
-    loginHandler
+    const result = loginHandler(emailInput, passwordInput)
+
+    if (result.status) {
+      navigate('/')
+    }
   }
 
   return (
