@@ -10,6 +10,13 @@ const AuthenticationContext = createContext({
 export const AuthenticationContextProvider = ({ children }) => {
   const [logInData, setLogInData] = useState({isLoggedIn: false})
 
+  useEffect(()=>{
+    if (localStorage.getItem("logInDetails")) {
+      const logInDetails = JSON.parse(localStorage.getItem("logInDetails"))
+      setLogInData({isLoggedIn: true, ...logInDetails})
+    }
+  }, [])
+
   const signUpHandler = (name, email, password) => {
     const signUpDetails = {
       name,
@@ -37,6 +44,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
     if (email === storedEmail && password === storedPassword) {
       setLogInData({isLoggedIn: true, name, email, password})
+      localStorage.setItem("logInDetails", JSON.stringify(signUpDetails));
       return { status: true };
     }
 
