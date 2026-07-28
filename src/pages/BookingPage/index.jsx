@@ -13,23 +13,25 @@ import DateSelection from './DateSelection';
 import DriverDetails from './DriverDetails';
 import { MdOutlineHorizontalRule } from "react-icons/md";
 import AuthenticationContext from '../../context/auth';
+import { formatDate } from '../../helpers/dateFormatting';
 
 const BookingPage = () => {
   const {logInData} = useContext(AuthenticationContext)
-  const [driverInformation, setDriverInformation] = useState({name: logInData.name});
-
+  
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [carDetail, setCarDetail] = useState(null)
   const { carid } = useParams()
+  let id = Number(carid)
   const [wizardStepNumber, setWizardStepNumber] = useState(1)
-
+  
   // Booking Details
   // Dates
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [totalPrice, setTotalPrice] = useState(0)
-  let id = Number(carid)
+  // Driver Info
+  const [driverInformation, setDriverInformation] = useState({name: logInData.name});
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -51,6 +53,11 @@ const BookingPage = () => {
 
     fetchCars()
   }, [])
+
+  const handleConfirmBooking = () => {
+    const booking = {id: 1, carId: id, startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
+    console.log(booking);
+  }
 
 
   return (
@@ -123,7 +130,14 @@ const BookingPage = () => {
                 driverInformation={driverInformation}
                 setDriverInformation={setDriverInformation}
               />}
-            {wizardStepNumber === 3 && <Confirmation setWizardStepNumber={setWizardStepNumber}/>}
+            {wizardStepNumber === 3 && 
+              <Confirmation 
+                setWizardStepNumber={setWizardStepNumber}
+                startDate={startDate}
+                endDate={endDate}
+                driverInformation={driverInformation}
+                handleConfirmBooking={handleConfirmBooking}
+              />}
         </div>
       </div>}
     </div>

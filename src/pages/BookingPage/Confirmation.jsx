@@ -1,7 +1,7 @@
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { formatDate } from "../../helpers/dateFormatting";
 
-const Confirmation = ({setWizardStepNumber}) => {
-  const handleConfirmation = () => {}
+const Confirmation = ({setWizardStepNumber, startDate, endDate, driverInformation, handleConfirmBooking}) => {
 
   return (
     <div>
@@ -10,11 +10,11 @@ const Confirmation = ({setWizardStepNumber}) => {
       <div className="flex gap-3">
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">From:</label>
-          <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>24-45-2019</div>
+          <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
         </div>
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">To:</label>
-          <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>24-45-2019</div>
+          <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(endDate)}</div>
         </div>
       </div>
       <div className="mt-5">
@@ -22,15 +22,15 @@ const Confirmation = ({setWizardStepNumber}) => {
         <div className="flex gap-3 w-full">
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">Full Name</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>Mariam Khatoon</div>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{driverInformation.name}</div>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">Mobile No.</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' placeholder='Ex: example@gmail.com'>903209329032</div>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{driverInformation.mobileNo}</div>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <label htmlFor="">License Number:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>93990e32092</div>
+            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{driverInformation.licenseNo}</div>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@ const Confirmation = ({setWizardStepNumber}) => {
           <FaArrowLeft />
           <p>Back</p>
         </button>
-        <button onClick={handleConfirmation} className='bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
+        <button onClick={handleConfirmBooking} className='bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer mt-7'>
           <p>Confirm Booking</p>
         </button>
       </div>
