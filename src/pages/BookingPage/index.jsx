@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaCar } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
@@ -12,8 +12,12 @@ import Confirmation from './Confirmation';
 import DateSelection from './DateSelection';
 import DriverDetails from './DriverDetails';
 import { MdOutlineHorizontalRule } from "react-icons/md";
+import AuthenticationContext from '../../context/auth';
 
 const BookingPage = () => {
+  const {logInData} = useContext(AuthenticationContext)
+  const [driverInformation, setDriverInformation] = useState({name: logInData.name});
+
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [carDetail, setCarDetail] = useState(null)
@@ -113,7 +117,12 @@ const BookingPage = () => {
                 setTotalPrice={setTotalPrice}
                 pricePerDay={carDetail.pricePerDay}
               />}
-            {wizardStepNumber === 2 && <DriverDetails setWizardStepNumber={setWizardStepNumber}/>}
+            {wizardStepNumber === 2 && 
+              <DriverDetails 
+                setWizardStepNumber={setWizardStepNumber}
+                driverInformation={driverInformation}
+                setDriverInformation={setDriverInformation}
+              />}
             {wizardStepNumber === 3 && <Confirmation setWizardStepNumber={setWizardStepNumber}/>}
         </div>
       </div>}
