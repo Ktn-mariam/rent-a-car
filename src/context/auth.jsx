@@ -29,7 +29,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       return { status: false, message: "You do not have an account, please sign up" };
     }
     
-    const { email: storedEmail, password: storedPassword } = signUpDetails;
+    const { email: storedEmail, password: storedPassword, name } = signUpDetails;
 
     if (email === storedEmail && password != storedPassword){
       return { status: false, message: "Invalid Password" }
