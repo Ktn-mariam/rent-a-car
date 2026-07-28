@@ -16,7 +16,7 @@ export const getDatesInRange = (start, end) => {
   const current = new Date(start);
 
   while (current <= end) {
-    dates.push(current.getTime());
+    dates.push(formatDate(current)); // only date
     current.setDate(current.getDate() + 1);
   }
 

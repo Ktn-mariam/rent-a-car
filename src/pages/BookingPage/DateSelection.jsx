@@ -19,12 +19,14 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
 
   useEffect(()=>{
     const bookingsOfThisCar = bookings.filter((booking)=> booking.carId === carID)
+    console.log(bookingsOfThisCar);
+    
 
     let blockedDatesOfThisCar = [];
     bookingsOfThisCar.forEach((booking)=>{
-      blockedDates.push(...getDatesInRange(new Date(booking.startDate), new Date(booking.endDate)))
+      blockedDatesOfThisCar.push(...getDatesInRange(new Date(booking.startDate), new Date(booking.endDate)))
     })
-
+    
     setBlockedDates(blockedDatesOfThisCar)
 
   }, [bookings])
@@ -59,6 +61,7 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
             year={year}
             setTotalPrice={setTotalPrice}
             pricePerDay={pricePerDay}
+            blockedDates={blockedDates}
           />}
         </div>
         <div className="flex gap-3 w-full">

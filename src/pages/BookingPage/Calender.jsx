@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { getDatesInRange } from "../../helpers/dateFormatting";
+import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 
-const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay}) => {
+const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay, blockedDates}) => {
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   const monthText = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -14,12 +14,12 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     if (!startDate) {
       setStartDate(date)
       setTotalPrice(0)
-      setSelectedDates([date.getTime()])
+      setSelectedDates([date.toISOString().split("T")[0]])
     } else if (startDate && endDate) {
       setStartDate(date)
       setEndDate(null)
       setTotalPrice(0)
-      setSelectedDates([date.getTime()])
+      setSelectedDates([date.toISOString().split("T")[0]])
     } else {
       setEndDate(date);
       const rangeOfDates = getDatesInRange(startDate, date)
@@ -54,6 +54,20 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     setYear(newYear)
   }
 
+  const returnColorOfDate = (date) => {
+    const dateString = formatDate(date);
+
+    if (selectedDates.includes(dateString)) {
+      return "bg-blue-500 text-white";
+    } 
+    
+    if (blockedDates.includes(dateString)) {
+      return "bg-zinc-300";
+    }
+
+    return "bg-white";
+  };
+
   return (
     <div className="w-96">
       <div className="flex justify-around bg-black">
@@ -71,7 +85,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
         })}
         {datesInMonthArray.map((date, index) => {
           return (
-            <button className={`${selectedDates.includes(date.getTime()) ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => handleSelectDate(date)} key={index}>{date.getDate()}</button>
+            <button className={returnColorOfDate(date)} onClick={() => handleSelectDate(date)} disabled={blockedDates.includes(formatDate(date))} key={index}>{date.getDate()}</button>
         )})}
       </div>
     </div>
