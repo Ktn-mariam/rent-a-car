@@ -5,10 +5,16 @@ import AuthenticationContext from "../context/auth";
 import { IoHome } from "react-icons/io5";
 import { FaCar, FaUserAlt } from "react-icons/fa";
 import { FaCalendarDay, FaCircleUser } from "react-icons/fa6";
+import { PiSignOutBold } from "react-icons/pi";
 
 const Navbar = () => {
-  const { logInData } = useContext(AuthenticationContext)
+  const { logInData, setLogInData } = useContext(AuthenticationContext)
   const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    setLogInData({isLoggedIn: false})
+    localStorage.removeItem("logInDetails");
+  }
 
   return (
     <div>
@@ -45,9 +51,15 @@ const Navbar = () => {
           </div>
         <div>
         {logInData.isLoggedIn ? 
-          <div className="flex items-center gap-2 hover:cursor-pointer">
-            <FaUserAlt />
-            <div>Welcome {logInData.name.split(" ")[0]}</div>
+          <div className="flex gap-10">
+            <div onClick={handleLogOut} className="flex items-center gap-2 hover:cursor-pointer">
+              <PiSignOutBold />
+              <div>Log Out</div>
+            </div>
+            <div className="flex items-center gap-2 hover:cursor-pointer">
+              <FaUserAlt />
+              <div>Welcome {logInData.name.split(" ")[0]}</div>
+            </div>
           </div>
           : 
             <div onClick={() => { navigate('/login') }} className="flex items-center gap-2 hover:cursor-pointer">
