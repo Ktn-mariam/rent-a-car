@@ -68,6 +68,7 @@ const LoginPage = () => {
           {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
         </div>
         <button onClick={checkInputsHandler} className='bg-black text-white py-2 rounded-md'>Sign in</button>
+        <div className="text-center">Dont have an account? Click <span className="underline hover:cursor-pointer" onClick={()=>{navigate('/signup')}}>here</span> to sign up</div>
       </form>
     </div>
   )
