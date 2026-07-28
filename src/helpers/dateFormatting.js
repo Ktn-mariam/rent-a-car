@@ -10,3 +10,15 @@ export const formatDate = (date) => {
   const formattedDate = `${yyyy}-${mm}-${dd}`;
   return formattedDate
 }
+  
+export const getDatesInRange = (start, end) => {
+  const dates = [];
+  const current = new Date(start);
+
+  while (current <= end) {
+    dates.push(current.getTime());
+    current.setDate(current.getDate() + 1);
+  }
+
+  return dates;
+};

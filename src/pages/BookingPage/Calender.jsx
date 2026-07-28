@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { getDatesInRange } from "../../helpers/dateFormatting";
 
 const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay}) => {
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
@@ -26,18 +27,6 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
       setTotalPrice(pricePerDay * rangeOfDates.length)
     }
   }
-
-  const getDatesInRange = (start, end) => {
-    const dates = [];
-    const current = new Date(start);
-
-    while (current <= end) {
-      dates.push(current.getTime());
-      current.setDate(current.getDate() + 1);
-    }
-
-    return dates;
-  };
 
   const handleBackInCalender = () => {
     let newMonth = month - 1;    
