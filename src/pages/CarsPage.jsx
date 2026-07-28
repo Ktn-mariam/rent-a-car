@@ -71,14 +71,6 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
   }, [])
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchText(searchText)
-    }, 300)
-
-    return () => clearTimeout(timer);
-  }, [searchText]);
-
-  useEffect(() => {
     let filteredCars = cars;
 
     // filtering logic based on transmission and type
