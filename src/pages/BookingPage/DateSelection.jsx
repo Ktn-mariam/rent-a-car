@@ -1,20 +1,34 @@
 import { useEffect, useState, useContext } from "react"
 import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
-import { formatDate } from "../../helpers/dateFormatting";
+import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 import BookingsContext from "../../context/bookings";
 
-const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
+const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
   const { bookings } = useContext(BookingsContext)
 
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth())
   const [year, setYear] = useState(today.getFullYear())
   const [datesInMonthArray, setDatesInMonthArray] = useState([])
+  const [blockedDates, setBlockedDates] = useState([])
   
   useEffect(()=>{
     setDatesInMonthArray(getAllDatesInMonth(year, month))
   }, [year, month])
+
+  useEffect(()=>{
+    const bookingsOfThisCar = bookings.filter((booking)=> booking.carId === carID)
+
+    let blockedDatesOfThisCar = [];
+    bookingsOfThisCar.forEach((booking)=>{
+      blockedDates.push(...getDatesInRange(new Date(booking.startDate), new Date(booking.endDate)))
+    })
+
+    setBlockedDates(blockedDatesOfThisCar)
+
+  }, [bookings])
+
   
   const getAllDatesInMonth = (year, month) => {
     const dates = [];

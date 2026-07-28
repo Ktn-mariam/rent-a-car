@@ -117,6 +117,7 @@ const BookingPage = () => {
           </div>
             {wizardStepNumber === 1 && 
               <DateSelection 
+                carID={id}
                 setWizardStepNumber={setWizardStepNumber} 
                 startDate={startDate} 
                 setStartDate={setStartDate} 
