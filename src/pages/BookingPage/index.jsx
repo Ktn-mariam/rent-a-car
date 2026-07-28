@@ -15,10 +15,13 @@ import { MdOutlineHorizontalRule } from "react-icons/md";
 import AuthenticationContext from '../../context/auth';
 import BookingsContext from '../../context/bookings';
 import { formatDate } from '../../helpers/dateFormatting';
+import { useNavigate } from 'react-router-dom';
 
 const BookingPage = () => {
   const { logInData } = useContext(AuthenticationContext)
   const { handleAddToBookings } = useContext(BookingsContext)
+
+  const navigate = useNavigate();
   
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -57,8 +60,9 @@ const BookingPage = () => {
   }, [])
 
   const handleConfirmBooking = () => {
-    const booking = { startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
+    const booking = { carId: id, startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
     handleAddToBookings(booking)
+    navigate('/myBookings')
   }
 
 

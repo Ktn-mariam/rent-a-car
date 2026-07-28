@@ -8,6 +8,7 @@ import LoginPage from './pages/LogInPage'
 import { AuthenticationContextProvider } from './context/auth'
 import { BookingsContextProvider } from './context/bookings'
 import BookingPage from './pages/BookingPage'
+import MyBookingsPage from './pages/MyBookingsPage'
 
 const App = () => {
   const [favouriteCarIds, setFavouriteCarIds] = useState(JSON.parse(
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/cars/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
             <Route path="/cars/:carid/booking" element={<BookingPage/>}/>
+            <Route path="/myBookings" element={<MyBookingsPage/>}/>
           </Routes>
         </BrowserRouter>
       </BookingsContextProvider>
