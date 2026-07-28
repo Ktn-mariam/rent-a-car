@@ -2,7 +2,8 @@ import React, { createContext, useEffect, useState } from 'react'
 
 const BookingsContext = createContext({
   bookings: [],
-  setBookings: () =>{}
+  setBookings: () =>{},
+  handleAddToBookings: (booking) =>{}
 })
 
 export const BookingsContextProvider = ({ children }) => {
@@ -18,10 +19,17 @@ export const BookingsContextProvider = ({ children }) => {
     fetchBookings()
   }, [])
 
+  const handleAddToBookings = (booking) => {
+    const BookingId = `b${bookings.length + 1}`
+    setBookings((prevBookings) => {
+      return [...prevBookings, {id: BookingId, ...booking}]
+    })
+  }
 
   let contextValue = {
     bookings,
-    setBookings
+    setBookings,
+    handleAddToBookings
   }
 
   return (

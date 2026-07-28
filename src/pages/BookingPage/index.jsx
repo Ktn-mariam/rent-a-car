@@ -13,10 +13,12 @@ import DateSelection from './DateSelection';
 import DriverDetails from './DriverDetails';
 import { MdOutlineHorizontalRule } from "react-icons/md";
 import AuthenticationContext from '../../context/auth';
+import BookingsContext from '../../context/bookings';
 import { formatDate } from '../../helpers/dateFormatting';
 
 const BookingPage = () => {
-  const {logInData} = useContext(AuthenticationContext)
+  const { logInData } = useContext(AuthenticationContext)
+  const { handleAddToBookings } = useContext(BookingsContext)
   
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -55,7 +57,7 @@ const BookingPage = () => {
   }, [])
 
   const handleConfirmBooking = () => {
-    const booking = {id: 1, carId: id, startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
+    const booking = {carId: id, startDate: formatDate(startDate), endDate: formatDate(endDate), driver: driverInformation}
     console.log(booking);
   }
 
