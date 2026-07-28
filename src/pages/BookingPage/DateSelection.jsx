@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
-
+import { formatDate } from "../../helpers/dateFormatting";
 
 const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
   const today = new Date();
@@ -22,18 +22,6 @@ const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, se
       date.setDate(date.getDate() + 1); 
     }
     return dates;
-  }
-
-  const formatDate = (date) => {
-    if (!date) {
-      return 'YYYY-MM-DD'
-    }
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-
-    const formattedDate = `${yyyy}-${mm}-${dd}`;
-    return formattedDate
   }
 
   return (
