@@ -52,13 +52,26 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     setYear(newYear)
   }
 
+  const handleNextInCalender = () => {
+    let newMonth = month + 1;    
+    let newYear = year;
+
+    if (newMonth === 12) {
+      newMonth = 1;
+      newYear++;
+    }
+
+    setMonth(newMonth)
+    setYear(newYear)
+  }
+
   return (
     <div className="w-96">
       <div className="flex justify-around bg-black">
         <button onClick={handleBackInCalender}><FaArrowLeft className="text-white"/></button>
         <p className="text-white">{monthText[month]}</p>
         <p className="text-white">{year}</p>
-        <button><FaArrowRight className="text-white"/></button>
+        <button onClick={handleNextInCalender}><FaArrowRight className="text-white"/></button>
       </div>
       <div className="grid grid-cols-7 gap-x-1 gap-y-5">
         {daysOfWeek.map((day, index)=>{
