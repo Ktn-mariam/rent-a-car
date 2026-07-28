@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, year, setTotalPrice, pricePerDay}) => {
+const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay}) => {
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   const monthText = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -39,17 +39,29 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     return dates;
   };
 
+  const handleBackInCalender = () => {
+    let newMonth = month -1;
+    let newYear = year;
+    if (newMonth >= 0) {
+      newMonth = 12;
+      newYear--;
+    }
+
+    setMonth(newMonth)
+    setYear(newYear)
+  }
+
   return (
     <div className="w-96">
       <div className="flex justify-around bg-black">
-        <button><FaArrowLeft className="text-white"/></button>
+        <button onClick={handleBackInCalender}><FaArrowLeft className="text-white"/></button>
         <p className="text-white">{monthText[month]}</p>
         <p className="text-white">{year}</p>
         <button><FaArrowRight className="text-white"/></button>
       </div>
       <div className="grid grid-cols-7 gap-x-1 gap-y-5">
         {daysOfWeek.map((day, index)=>{
-          return <div className="text-center">{day}</div>
+          return <div key={index} className="text-center">{day}</div>
         })}
         {rangeFromFirstDay.map((number, index)=>{
           return <div key={index}></div>

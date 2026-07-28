@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
 import { formatDate } from "../../helpers/dateFormatting";
+import BookingsContext from "../../context/bookings";
 
 const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
+  const { bookings } = useContext(BookingsContext)
+
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth())
   const [year, setYear] = useState(today.getFullYear())
@@ -37,6 +40,8 @@ const DateSelection = ({setWizardStepNumber,startDate, setStartDate, endDate, se
             setEndDate={setEndDate} 
             endDate={endDate} 
             month={month} 
+            setMonth={setMonth}
+            setYear={setYear}
             year={year}
             setTotalPrice={setTotalPrice}
             pricePerDay={pricePerDay}
