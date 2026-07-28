@@ -57,7 +57,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     let newYear = year;
 
     if (newMonth === 12) {
-      newMonth = 1;
+      newMonth = 0;
       newYear++;
     }
 
