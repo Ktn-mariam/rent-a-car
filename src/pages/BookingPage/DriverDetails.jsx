@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-const DriverDetails = ({setWizardStepNumber}) => {
+const DriverDetails = ({setWizardStepNumber, driverInformation, setDriverInformation}) => {
   const nameRef = useRef(null)
   const mobileNoRef = useRef(null)
   const licenseRef = useRef(null)
@@ -9,10 +9,11 @@ const DriverDetails = ({setWizardStepNumber}) => {
   const handleNextButton = () => {
     const nameInput = nameRef.current.value;
     const mobileNoInput = mobileNoRef.current.value;
-    const licenseInput = LicenseRef.current.value;
+    const licenseInput = licenseRef.current.value;
 
-    const DriverDetails = {name: nameInput, mobileNo: mobileNoInput, licenseNo: licenseInput}
+    const DriverInfo = {name: nameInput, mobileNo: mobileNoInput, licenseNo: licenseInput}
 
+    setDriverInformation(DriverInfo)
     setWizardStepNumber(3)
   }
 
@@ -22,15 +23,15 @@ const DriverDetails = ({setWizardStepNumber}) => {
       <form className="mt-5 flex gap-3 w-full" action="">
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">Full Name</label>
-          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' placeholder='Ex: John Max'/>
+          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' ref={nameRef} defaultValue={driverInformation.name} placeholder='Ex: John Max'/>
         </div>
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">Mobile No.</label>
-          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' placeholder='Ex: example@gmail.com'/>
+          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' ref={mobileNoRef} defaultValue={driverInformation?.mobileNo || null} placeholder='Ex: +971 50 123 5678'/>
         </div>
         <div className="flex flex-col gap-1 flex-1">
           <label htmlFor="">License Number:</label>
-          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' placeholder='Ex: 123456789'/>
+          <input type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1' ref={licenseRef} defaultValue={driverInformation?.licenseNo || null} placeholder='Ex: 123456789'/>
         </div>
       </form>
       <div className="flex gap-3 items-end justify-end">
