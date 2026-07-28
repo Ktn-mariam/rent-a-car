@@ -16,8 +16,19 @@ export const BookingsContextProvider = ({ children }) => {
       setBookings(bookings)
     }
 
-    fetchBookings()
+    if (!localStorage.getItem("Bookings")) {
+      fetchBookings()
+    } else {
+      setBookings(JSON.parse(localStorage.getItem("Bookings")))
+    }
   }, [])
+
+  useEffect(()=>{
+    localStorage.setItem(
+      "Bookings",
+      JSON.stringify(bookings)
+    );
+  }, [bookings])
 
   const handleAddToBookings = (booking) => {
     const BookingId = `b${bookings.length + 1}`
