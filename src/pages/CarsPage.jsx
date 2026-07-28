@@ -187,7 +187,6 @@ function CarsPage({favouriteCarIds, setFavouriteCarIds}) {
 
   return (
     <div className='mb-14'>
-      {logInData.isLoggedIn && <h1 className='sm:mx-20 mx-5 font-bold text-xl italic'>Welcome {logInData.name.split(" ")[0]},</h1>}
       <div className='flex sm:gap-10 gap-5 my-5 sm:mx-20 mx-5'>
         <div className='sm:w-56 min-w-40'>
           <h2 className='text-xl font-bold'>Filters</h2>
