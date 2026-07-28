@@ -40,10 +40,11 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
   };
 
   const handleBackInCalender = () => {
-    let newMonth = month -1;
+    let newMonth = month - 1;    
     let newYear = year;
-    if (newMonth >= 0) {
-      newMonth = 12;
+    
+    if (newMonth < 0) {
+      newMonth = 11;
       newYear--;
     }
 
