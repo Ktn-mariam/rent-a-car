@@ -2,12 +2,17 @@
 import { useContext, useEffect, useState } from "react"
 import BookingsContext from "../../context/bookings"
 import BookingCard from "../../components/BookingCard"
+import AuthenticationContext from "../../context/auth"
+import { useNavigate } from "react-router-dom"
 
 const MyBookingsPage = () => {
   const { bookings } = useContext(BookingsContext)
+  const { logInData } = useContext(AuthenticationContext)
   const [pastBookings, setPastBookings] = useState(null)
   const [upcomingBookings, setUpcomingBookings] = useState(null)
   const [sideBarOption, setSideBarOption] = useState("Upcoming")
+
+  const navigate = useNavigate()
 
   useEffect(()=>{
     const pastBookingsFiltered = bookings.filter((booking)=> {
@@ -25,6 +30,10 @@ const MyBookingsPage = () => {
     setPastBookings(pastBookingsFiltered)
     setUpcomingBookings(upcomingBookingsFiltered)
   }, [bookings])
+
+  if (!logInData.isLoggedIn) {
+    navigate("/login")
+  }
 
   return (
     <div className="mb-14 ">

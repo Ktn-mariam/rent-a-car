@@ -65,6 +65,9 @@ const BookingPage = () => {
     navigate('/myBookings')
   }
 
+  if (!logInData.isLoggedIn) {
+    navigate('/login')
+  }
 
   return (
     <div className='mt-32 mx-40'>
