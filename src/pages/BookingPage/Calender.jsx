@@ -14,12 +14,12 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     if (!startDate) {
       setStartDate(date)
       setTotalPrice(0)
-      setSelectedDates([date.toISOString().split("T")[0]])
+      setSelectedDates([formatDate(date)])
     } else if (startDate && endDate) {
       setStartDate(date)
       setEndDate(null)
       setTotalPrice(0)
-      setSelectedDates([date.toISOString().split("T")[0]])
+      setSelectedDates([formatDate(date)])
     } else {
       setEndDate(date);
       const rangeOfDates = getDatesInRange(startDate, date)
