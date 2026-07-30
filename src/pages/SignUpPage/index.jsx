@@ -50,6 +50,7 @@ const SignUpPage = () => {
           <input type="password" ref={retypePasswordRef}  className='py-1 w-full border-none focus:outline-none' placeholder='Retype Password'/>
         </div>
         <button onClick={InputSubmitHandler} className='bg-black text-white py-2 rounded-md'>Sign up</button>
+        <div className="text-center">Already have an account? Click <span className="underline hover:cursor-pointer" onClick={()=>{navigate('/login')}}>here</span> to log up</div>
       </form>
     </div>
   )
