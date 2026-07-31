@@ -3,6 +3,10 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 
 const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay, blockedDates}) => {
+  const now = new Date();
+  const currentMonth = now.getMonth(); // Returns 1-12
+  const currentYear = now.getFullYear();
+
   const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   const monthText = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -29,6 +33,10 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
   }
 
   const handleBackInCalender = () => {
+    if (month === currentMonth && year === currentYear) {
+      return;
+    }
+
     let newMonth = month - 1;    
     let newYear = year;
     
