@@ -54,6 +54,16 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
     return dates;
   }
 
+  const validateDatesAndNextHandler = () => {
+    if (!startDate || !endDate) {
+      setError("Please select the range of dates you want to book the car")
+      return;
+    } 
+    if (!error) {
+      setWizardStepNumber(2)
+    }
+  }
+
   return (
     <div className="flex gap-5 flex-col">
       <p>Select a range of dates you want to book your car:</p>
@@ -73,25 +83,35 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
             setTotalPrice={setTotalPrice}
             pricePerDay={pricePerDay}
             blockedDates={blockedDates}
+            error={error}
+            setError={setError}
+            selectedDates={selectedDates}
+            setSelectedDates={setSelectedDates}
           />}
         </div>
-        <div className="flex gap-3 w-full">
-          <div className="flex flex-col gap-1 flex-1">
-            <label htmlFor="">From:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
+        <div className="w-full">
+          <div className="flex gap-3 w-full">
+            <div className="flex flex-col gap-1 flex-1">
+              <label htmlFor="">From:</label>
+              <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(startDate)}</div>
+            </div>
+            <div className="flex flex-col gap-1 flex-1">
+              <label htmlFor="">To:</label>
+              <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(endDate)}</div>
+            </div>
+            <div className="flex flex-col gap-1 flex-1">
+              <label htmlFor="">Price:</label>
+              <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>AED {totalPrice}</div>
+            </div>
           </div>
-          <div className="flex flex-col gap-1 flex-1">
-            <label htmlFor="">To:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>{formatDate(endDate)}</div>
-          </div>
-          <div className="flex flex-col gap-1 flex-1">
-            <label htmlFor="">Price:</label>
-            <div type="text" className='border-2 border-solid bg-zinc-200 rounded-md px-2 focus-within:border-gray-300 transition-colors py-1'>AED {totalPrice}</div>
-          </div>
+          {error && <div className="flex gap-2 items-center mt">
+            <MdError className="text-red-600" />
+            <p className="text-red-600">Error: {error}</p>
+          </div>}
         </div>
       </div>
       <div className="flex items-end justify-end">
-        <button onClick={()=> setWizardStepNumber(2)} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer'>
+        <button onClick={validateDatesAndNextHandler} className='flex items-center gap-4 bg-black text-white rounded-md px-3 py-1 hover:cursor-pointer'>
           <p>Next</p>
           <FaArrowRight />
         </button>

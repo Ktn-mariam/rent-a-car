@@ -19,6 +19,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
       setStartDate(date)
       setTotalPrice(0)
       setSelectedDates([formatDate(date)])
+      setError(null)
     } else if (startDate && endDate) {
       setStartDate(date)
       setEndDate(null)
@@ -26,6 +27,11 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
       setSelectedDates([formatDate(date)])
     } else {
       setEndDate(date);
+      setError(null)
+      if (date < startDate) {
+        setError("Please select valid range of dates. End date cannot be before the start date")
+        return;
+      }
       const rangeOfDates = getDatesInRange(startDate, date)
       setSelectedDates(rangeOfDates);
       setTotalPrice(pricePerDay * rangeOfDates.length)
