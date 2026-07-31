@@ -27,6 +27,17 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
       blockedDatesOfThisCar.push(...getDatesInRange(new Date(booking.startDate), new Date(booking.endDate)))
     })
     
+    // Block past days of this month
+    let yesterdayDate = new Date();
+    yesterdayDate.setDate(today.getDate() - 1);
+    const firstDayOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    
+    if (today.getDate() > 1) {
+      blockedDatesOfThisCar.push(
+        ...getDatesInRange(firstDayOfCurrentMonth, yesterdayDate)
+      );
+    }
+    
     setBlockedDates(blockedDatesOfThisCar)
 
   }, [bookings])
