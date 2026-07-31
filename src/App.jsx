@@ -9,6 +9,7 @@ import { AuthenticationContextProvider } from './context/auth'
 import { BookingsContextProvider } from './context/bookings'
 import BookingPage from './pages/BookingPage'
 import MyBookingsPage from './pages/MyBookingsPage'
+import { ToastNotificationsContextProvider } from './context/toastNotifications'
 
 const App = () => {
   const [favouriteCarIds, setFavouriteCarIds] = useState(JSON.parse(
@@ -22,21 +23,23 @@ const App = () => {
   }, [favouriteCarIds])
   
   return (
-    <AuthenticationContextProvider>
-      <BookingsContextProvider>
-        <BrowserRouter>
-          <Navbar/>
-          <Routes>
-            <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-            <Route path="/signup" element={<SignUpPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/cars/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
-            <Route path="/cars/:carid/booking" element={<BookingPage/>}/>
-            <Route path="/myBookings" element={<MyBookingsPage/>}/>
-          </Routes>
-        </BrowserRouter>
-      </BookingsContextProvider>
-    </AuthenticationContextProvider>
+    <ToastNotificationsContextProvider>
+      <AuthenticationContextProvider>
+        <BookingsContextProvider>
+          <BrowserRouter>
+            <Navbar/>
+            <Routes>
+              <Route path="/" element={<CarsPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+              <Route path="/signup" element={<SignUpPage/>}/>
+              <Route path="/login" element={<LoginPage/>}/>
+              <Route path="/cars/:carid" element={<CarDetailPage setFavouriteCarIds={setFavouriteCarIds} favouriteCarIds={favouriteCarIds}/>}/>
+              <Route path="/cars/:carid/booking" element={<BookingPage/>}/>
+              <Route path="/myBookings" element={<MyBookingsPage/>}/>
+            </Routes>
+          </BrowserRouter>
+        </BookingsContextProvider>
+      </AuthenticationContextProvider>
+    </ToastNotificationsContextProvider>
   )
 }
 
