@@ -5,6 +5,7 @@ import { IoWarning } from "react-icons/io5";
 import { FaCircleInfo } from "react-icons/fa6";
 
 const ToastNotificationsContext = createContext({
+  showToast: (message, type) => {}
 })
 
 export const ToastNotificationsContextProvider = ({ children }) => {
@@ -22,35 +23,27 @@ export const ToastNotificationsContextProvider = ({ children }) => {
   };
 
   let contextValue = {
-    
+    showToast
   }
 
   return (
     <ToastNotificationsContext.Provider value={contextValue}>
-      {toast && toast.type === "success" && (
-        <div className='flex gap-3 bg-green-200'>
-          <FaCircleCheck className='bg-green-600' />
-          <p>{toast.message}</p>
-        </div>
-      )}
-      {toast && toast.type === "error" && (
-        <div className='flex gap-3 bg-red-600'>
-          <FaCircleXmark className='bg-red-600'/>
-          <p>{toast.message}</p>
-        </div>
-      )}
-      {toast && toast.type === "warning" && (
-        <div className='flex gap-3 bg-amber-200'>
-          <IoWarning className='bg-amber-600'/>
-          <p>{toast.message}</p>
-        </div>
-      )}
-      {toast && toast.type === "information" && (
-        <div className='flex gap-3 bg-sky-200'>
-          <FaCircleInfo className='bg-sky-600'/>
-          <p>{toast.message}</p>
-        </div>
-      )}
+      <div className={` pl-5 pr-16 py-3 rounded-md shadow-md flex items-center gap-3 fixed top-28 right-4 border-2 border-l-8 border-green-400 bg-green-100 transition-all duration-500 ease-out ${toast && toast.type === "success" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+        <FaCircleCheck className='text-green-600' size={'1.2rem'}/>
+        <p>{toast?.message}</p>
+      </div>
+      <div className={` pl-5 pr-16 py-3 rounded-md shadow-md flex items-center gap-3 fixed top-28 right-4 border-2 border-l-8 border-red-400 bg-red-100 transition-all duration-500 ease-out ${toast && toast.type === "error" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+        <FaCircleXmark className='text-red-600' size={'1.2rem'}/>
+        <p>{toast?.message}</p>
+      </div>
+      <div className={` pl-5 pr-16 py-3 rounded-md shadow-md flex items-center gap-3 fixed top-28 right-4 border-2 border-l-8 border-amber-400 bg-amber-100 transition-all duration-500 ease-out ${toast && toast.type === "alert" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+        <IoWarning className='text-amber-600' size={'1.2rem'}/>
+        <p>{toast?.message}</p>
+      </div>
+      <div className={` pl-5 pr-16 py-3 rounded-md shadow-md flex items-center gap-3 fixed top-28 right-4 border-2 border-l-8 border-sky-400 bg-sky-100 transition-all duration-500 ease-out ${toast && toast.type === "information" ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+        <FaCircleInfo className='text-sky-600' size={'1.2rem'}/>
+        <p>{toast?.message}</p>
+      </div>
       {children}
     </ToastNotificationsContext.Provider>
   )
