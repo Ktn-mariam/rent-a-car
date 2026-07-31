@@ -34,6 +34,7 @@ const BookingPage = () => {
   // Dates
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const [selectedDates, setSelectedDates] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   // Driver Info
   const [driverInformation, setDriverInformation] = useState({name: logInData.name});
@@ -133,6 +134,8 @@ const BookingPage = () => {
                 totalPrice={totalPrice}
                 setTotalPrice={setTotalPrice}
                 pricePerDay={carDetail.pricePerDay}
+                selectedDates={selectedDates}
+                setSelectedDates={setSelectedDates}
               />}
             {wizardStepNumber === 2 && 
               <DriverDetails 

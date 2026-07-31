@@ -5,7 +5,7 @@ import { MdError } from "react-icons/md";
 import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 import BookingsContext from "../../context/bookings";
 
-const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay}) => {
+const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endDate, setEndDate, totalPrice, setTotalPrice, pricePerDay, selectedDates, setSelectedDates}) => {
   const { bookings } = useContext(BookingsContext)
 
   const today = new Date();

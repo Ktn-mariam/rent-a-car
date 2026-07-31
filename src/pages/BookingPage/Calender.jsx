@@ -2,7 +2,7 @@ import { useState } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 
-const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay, blockedDates}) => {
+const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay, blockedDates, error, setError,selectedDates, setSelectedDates}) => {
   const now = new Date();
   const currentMonth = now.getMonth(); // Returns 1-12
   const currentYear = now.getFullYear();
@@ -12,7 +12,6 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
 
   const firstDay = datesInMonthArray[0].getDay()
   const rangeFromFirstDay = Array.from({ length: firstDay }, (_, index) => index + 1)
-  const [selectedDates, setSelectedDates] = useState([])
 
   const handleSelectDate = (date) => {
     if (!startDate) {
