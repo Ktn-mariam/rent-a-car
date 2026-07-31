@@ -37,7 +37,11 @@ const BookingPage = () => {
   const [selectedDates, setSelectedDates] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   // Driver Info
-  const [driverInformation, setDriverInformation] = useState({name: logInData.name});
+  const [driverInformation, setDriverInformation] = useState();
+
+  useEffect(()=>{
+    setDriverInformation({name: logInData.name})
+  }, [logInData])
 
   useEffect(() => {
     const fetchCars = async () => {
