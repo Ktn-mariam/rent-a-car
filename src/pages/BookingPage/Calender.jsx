@@ -22,6 +22,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
     } else if (startDate && endDate) {
       setStartDate(date)
       setEndDate(null)
+      setError(null)
       setTotalPrice(0)
       setSelectedDates([formatDate(date)])
     } else {
@@ -39,6 +40,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
 
   const handleBackInCalender = () => {
     if (month === currentMonth && year === currentYear) {
+      setError("Cannot select dates that have already passed.")
       return;
     }
 
@@ -55,6 +57,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
   }
 
   const handleNextInCalender = () => {
+    setError(null)
     let newMonth = month + 1;    
     let newYear = year;
 
