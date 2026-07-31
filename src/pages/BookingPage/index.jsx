@@ -16,10 +16,12 @@ import AuthenticationContext from '../../context/auth';
 import BookingsContext from '../../context/bookings';
 import { formatDate } from '../../helpers/dateFormatting';
 import { useNavigate } from 'react-router-dom';
+import ToastNotificationsContext from '../../context/toastNotifications';
 
 const BookingPage = () => {
   const { logInData } = useContext(AuthenticationContext)
   const { handleAddToBookings } = useContext(BookingsContext)
+  const { showToast } = useContext(ToastNotificationsContext)
 
   const navigate = useNavigate();
   
@@ -72,6 +74,7 @@ const BookingPage = () => {
 
   if (!logInData.isLoggedIn) {
     navigate('/login')
+    showToast("Please sign up/log in to book a car", "error")
   }
 
   return (
