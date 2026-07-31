@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import Calender from "./Calender"
 import { FaArrowRight } from "react-icons/fa";
+import { MdError } from "react-icons/md";
 import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
 import BookingsContext from "../../context/bookings";
 
@@ -12,6 +13,7 @@ const DateSelection = ({carID, setWizardStepNumber,startDate, setStartDate, endD
   const [year, setYear] = useState(today.getFullYear())
   const [datesInMonthArray, setDatesInMonthArray] = useState([])
   const [blockedDates, setBlockedDates] = useState([])
+  const [error, setError] = useState(null)
   
   useEffect(()=>{
     setDatesInMonthArray(getAllDatesInMonth(year, month))
