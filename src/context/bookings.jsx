@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState, useContext } from 'react'
+import ToastNotificationsContext from './toastNotifications'
 
 const BookingsContext = createContext({
   bookings: [],
@@ -8,6 +9,7 @@ const BookingsContext = createContext({
 
 export const BookingsContextProvider = ({ children }) => {
   const [bookings, setBookings] = useState([])
+  const { showToast } = useContext(ToastNotificationsContext)
 
   useEffect(()=>{
     const fetchBookings = async () => {
@@ -35,6 +37,7 @@ export const BookingsContextProvider = ({ children }) => {
     setBookings((prevBookings) => {
       return [...prevBookings, {id: BookingId, ...booking}]
     })
+    showToast(`Booking ${BookingId} added to My Booking`, "success")
   }
 
   let contextValue = {
