@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useContext } from "react"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { formatDate, getDatesInRange } from "../../helpers/dateFormatting";
+import ToastNotificationsContext from "../../context/toastNotifications";
 
 const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDate, month, setMonth, year, setYear, setTotalPrice, pricePerDay, blockedDates, error, setError,selectedDates, setSelectedDates}) => {
+  const { showToast } = useContext(ToastNotificationsContext)
+
   const now = new Date();
   const currentMonth = now.getMonth(); // Returns 1-12
   const currentYear = now.getFullYear();
@@ -40,7 +43,7 @@ const Calender = ({datesInMonthArray, setStartDate, startDate, setEndDate, endDa
 
   const handleBackInCalender = () => {
     if (month === currentMonth && year === currentYear) {
-      setError("Cannot select dates that have already passed.")
+      showToast("Cannot select dates that have already passed.", "alert")
       return;
     }
 
