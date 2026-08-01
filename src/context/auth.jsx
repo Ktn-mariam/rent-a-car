@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState, useContext } from 'react'
+import ToastNotificationsContext from './toastNotifications'
 
 const AuthenticationContext = createContext({
   signUpHandler: (name, email, password) => {},
@@ -8,6 +9,7 @@ const AuthenticationContext = createContext({
 })
 
 export const AuthenticationContextProvider = ({ children }) => {
+  const { showToast } = useContext(ToastNotificationsContext)
   const [logInData, setLogInData] = useState({isLoggedIn: false})
 
   useEffect(()=>{
@@ -33,7 +35,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     const signUpDetails = JSON.parse(localStorage.getItem("signUpDetails"));
 
     if (!signUpDetails) {
-      return { status: false, message: "You do not have an account, please sign up" };
+      showToast("You do not have an account, please sign up", "error");
     }
     
     const { email: storedEmail, password: storedPassword, name } = signUpDetails;
