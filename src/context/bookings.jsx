@@ -34,7 +34,11 @@ export const BookingsContextProvider = ({ children }) => {
   }, [bookings])
 
   const handleAddToBookings = (booking) => {
-    const BookingId = `b${bookings.length + 1}`
+    const maxId = Math.max(
+      ...bookings.map(booking => Number(booking.id.slice(1)))
+    );
+
+    const BookingId = `b${maxId + 1}`
     setBookings((prevBookings) => {
       return [...prevBookings, {id: BookingId, ...booking}]
     })
