@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaCircleXmark } from "react-icons/fa6";
 import { IoWarning } from "react-icons/io5";
@@ -10,9 +10,6 @@ const ToastNotificationsContext = createContext({
 
 export const ToastNotificationsContextProvider = ({ children }) => {
   const [toast, setToast] = useState(null)
-
-  useEffect(()=>{
-  }, [])
 
   const showToast = (message, type = "success") => {
     setToast({ message, type });
