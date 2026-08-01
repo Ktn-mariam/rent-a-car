@@ -4,7 +4,8 @@ import ToastNotificationsContext from './toastNotifications'
 const BookingsContext = createContext({
   bookings: [],
   setBookings: () =>{},
-  handleAddToBookings: (booking) =>{}
+  handleAddToBookings: (booking) =>{},
+  handleCancelBooking: (bookingId) =>{}
 })
 
 export const BookingsContextProvider = ({ children }) => {
@@ -40,10 +41,20 @@ export const BookingsContextProvider = ({ children }) => {
     showToast(`Booking ${BookingId} added to My Booking`, "success")
   }
 
+  const handleCancelBooking = (bookingId) => {
+    const newBookings = bookings.filter((booking)=>{
+      return booking.id !== bookingId
+    })
+
+    setBookings(newBookings)
+    showToast(`Booking ${bookingId} has been canelled`, "success")
+  }
+
   let contextValue = {
     bookings,
     setBookings,
-    handleAddToBookings
+    handleAddToBookings,
+    handleCancelBooking
   }
 
   return (

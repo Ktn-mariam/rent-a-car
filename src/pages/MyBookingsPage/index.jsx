@@ -8,7 +8,7 @@ import Modal from "../../components/Modal"
 import { GoAlertFill } from "react-icons/go";
 
 const MyBookingsPage = () => {
-  const { bookings, setBookings } = useContext(BookingsContext)
+  const { bookings, setBookings, handleCancelBooking } = useContext(BookingsContext)
   const { logInData } = useContext(AuthenticationContext)
   const [pastBookings, setPastBookings] = useState(null)
   const [upcomingBookings, setUpcomingBookings] = useState(null)
@@ -33,15 +33,6 @@ const MyBookingsPage = () => {
     setPastBookings(pastBookingsFiltered)
     setUpcomingBookings(upcomingBookingsFiltered)
   }, [bookings])
-
-  const handleCancelBooking = (id) => {
-    const newBookings = bookings.filter((booking)=>{
-      return booking.id !== id
-    })
-
-    setBookings(newBookings)
-  }
-
 
   if (!logInData.isLoggedIn) {
     navigate("/login")
