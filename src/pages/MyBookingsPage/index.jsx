@@ -6,10 +6,13 @@ import AuthenticationContext from "../../context/auth"
 import { useNavigate } from "react-router-dom"
 import Modal from "../../components/Modal"
 import { GoAlertFill } from "react-icons/go";
+import ToastNotificationsContext from "../../context/toastNotifications"
 
 const MyBookingsPage = () => {
   const { bookings, setBookings, handleCancelBooking } = useContext(BookingsContext)
   const { logInData } = useContext(AuthenticationContext)
+  const { showToast } = useContext(ToastNotificationsContext)
+  
   const [pastBookings, setPastBookings] = useState(null)
   const [upcomingBookings, setUpcomingBookings] = useState(null)
   const [sideBarOption, setSideBarOption] = useState("Upcoming")
@@ -36,6 +39,7 @@ const MyBookingsPage = () => {
 
   if (!logInData.isLoggedIn) {
     navigate("/login")
+    showToast("Please sign up/log in to book a car", "error")
   }
 
   return (
