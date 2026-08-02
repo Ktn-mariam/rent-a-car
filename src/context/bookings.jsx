@@ -51,7 +51,7 @@ export const BookingsContextProvider = ({ children }) => {
     })
 
     setBookings(newBookings)
-    showToast(`Booking ${bookingId} has been canelled`, "success")
+    showToast(`Booking ${bookingId} has been cancelled successfully`, "success")
   }
 
   let contextValue = {
